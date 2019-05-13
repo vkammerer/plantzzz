@@ -85,10 +85,15 @@ class Game extends Component {
     if (changePlant) await wait(1100);
     else await wait(1000);
     if (changePlant && QUESTIONS_COUNT === this.state.currentPlantI + 1) {
-      return this.props.onQuizzEnd({
-        date: Date.now(),
-        score: this.state.score,
-      });
+      return this.props.onQuizzEnd(
+        {
+          date: Date.now(),
+          score: this.state.score,
+        },
+        () => {
+          this.props.history.push("/leaderboard");
+        },
+      );
     }
     this.setState({
       isShowingAnswer: false,

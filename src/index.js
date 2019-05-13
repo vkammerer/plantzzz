@@ -3,7 +3,10 @@ import ReactDOM from "react-dom";
 import "./index.css";
 import App from "./App";
 import * as serviceWorker from "./serviceWorker";
-import { initCorrectVh } from './utils/vh';
+import { initCorrectVh } from "./utils/vh";
+import ReactGA from "react-ga";
+
+ReactGA.initialize("UA-140160255-1");
 
 initCorrectVh();
 
@@ -13,4 +16,3 @@ ReactDOM.render(<App />, document.getElementById("root"));
 // unregister() to register() below. Note this comes with some pitfalls.
 // Learn more about service workers: https://bit.ly/CRA-PWA
 serviceWorker.unregister();
-

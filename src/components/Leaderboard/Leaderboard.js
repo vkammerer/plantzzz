@@ -18,14 +18,12 @@ const Leaderboard = ({ scores, onQuizzStart }) => {
     .slice(0, 10)
     .map(s => {
       const date = new Date(s.date);
-      console.log({ date });
       const day = date.toLocaleDateString("en-US", dateOptions);
       return {
         ...s,
         day,
       };
     });
-  console.log({ augmentedScores });
   return (
     <div className="Leaderboard">
       <div className="Leaderboard_header">Scores - Top 10</div>

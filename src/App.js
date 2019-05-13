@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import ReactGA from "react-ga";
 import { BrowserRouter as Router, Route, Redirect } from "react-router-dom";
 
 import { getData } from "./utils/data";
@@ -33,11 +34,15 @@ class App extends Component {
     })();
   }
 
-  onQuizzEnd = score => {
+  onQuizzEnd = (score, cb) => {
+    ReactGA.event({
+      category: "Quizz",
+      action: "Score",
+      value: score.score,
+    });
     const scores = [...this.state.scores, score];
     localStorage.setItem("plantzzzScores", JSON.stringify(scores));
-    this.setState({ scores });
-    this.props.history.push("/leaderboard");
+    this.setState({ scores }, cb);
   };
   render() {
     return (
