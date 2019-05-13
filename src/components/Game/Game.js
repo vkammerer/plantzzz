@@ -36,7 +36,7 @@ class Game extends Component {
     this.setState({
       isAskingQuestion: true,
     });
-    await wait(2000);
+    await wait(1650);
     this.setState({
       quizzStartTime: Date.now(),
       isAskingQuestion: false,
@@ -57,7 +57,7 @@ class Game extends Component {
     if (!nextPlant) return;
 
     const nextPlantImage = new Image();
-    nextPlantImage.src = `${process.env.PUBLIC_URL}/images/plants/${nextPlant.image.dir}/${
+    nextPlantImage.src = `${process.env.PUBLIC_URL}/images/plants${nextPlant.image.dir}/${
       nextPlant.image.fileName
     }`;
   };
@@ -81,8 +81,9 @@ class Game extends Component {
       scoreStart: this.state.score || 0,
       score: getScore(thisQuizz),
     });
-    await wait(1000);
     const changePlant = this.state.currentQuestionI === 1;
+    if (changePlant) await wait(1100);
+    else await wait(1000);
     if (changePlant && QUESTIONS_COUNT === this.state.currentPlantI + 1) {
       return this.props.onQuizzEnd({
         date: Date.now(),

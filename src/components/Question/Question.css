@@ -7,21 +7,26 @@
   animation-timing-function: cubic-bezier(0.6, -0.28, 0.735, 0.045);
   animation-timing-function: linear;
   animation-fill-mode: forwards;
-  transform: translate3d(0, 13.5rem, 0);
+  /* transform: translate3d(0, 13.5rem, 0); */
+  opacity: 0;
 }
 
 @keyframes questionAnimation {
   0% {
-    transform: translate3d(0, 13.5rem, 0);
+    /* transform: translate3d(0, 13.5rem, 0); */
+    opacity: 0;
   }
-  12% {
-    transform: translate3d(0, 0, 0);
+  7% {
+    /* transform: translate3d(0, 0, 0); */
+    opacity: 1;
   }
-  88% {
-    transform: translate3d(0, 0, 0);
+  93% {
+    /* transform: translate3d(0, 0, 0); */
+    opacity: 1;
   }
   100% {
-    transform: translate3d(0, 13.5rem, 0);
+    /* transform: translate3d(0, 13.5rem, 0); */
+    opacity: 0;
   }
 }
 
