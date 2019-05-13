@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from "react-router-dom";
 
 import { sortBy, reverse } from "lodash";
 
@@ -27,7 +28,7 @@ const Leaderboard = ({ scores, onQuizzStart }) => {
   console.log({ augmentedScores });
   return (
     <div className="Leaderboard">
-      <div className="Leaderboard_header">Scores</div>
+      <div className="Leaderboard_header">Scores - Top 10</div>
       {augmentedScores.length === 0 && "No quizz completed yet"}
       {augmentedScores.length > 0 &&
         augmentedScores.map(s => (
@@ -36,9 +37,11 @@ const Leaderboard = ({ scores, onQuizzStart }) => {
             <div className="Leaderboard_score_score">{s.score}</div>
           </div>
         ))}
-      <div className="button Leaderboard_button" role="button" onClick={onQuizzStart}>
-        Play new Quizz
-      </div>
+      <Link to="/game">
+        <div className="button Leaderboard_button" role="button">
+          Play new Quizz
+        </div>
+      </Link>
     </div>
   );
 };

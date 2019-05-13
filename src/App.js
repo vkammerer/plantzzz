@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import { BrowserRouter as Router, Route, Redirect } from "react-router-dom";
 
 import { getData } from "./utils/data";
 import Game from "./components/Game/Game";
@@ -32,24 +33,11 @@ class App extends Component {
     })();
   }
 
-  handleViewLeaderboard = () => {
-    this.setState({
-      currentScreen: "leaderboard",
-    });
-  };
-
-  onQuizzStart = () => {
-    this.setState({
-      currentScreen: "quizz",
-    });
-  };
   onQuizzEnd = score => {
     const scores = [...this.state.scores, score];
     localStorage.setItem("plantzzzScores", JSON.stringify(scores));
-    this.setState({
-      scores,
-      currentScreen: "leaderboard",
-    });
+    this.setState({ scores });
+    this.props.history.push("/leaderboard");
   };
   render() {
     return (
@@ -64,20 +52,31 @@ class App extends Component {
           </div>
           <div className="appDomain">.web.app</div>
         </header>
-        {this.state.currentScreen === "home" && (
-          <Home
-            plants={this.state.plants}
-            error={this.state.error}
-            onQuizzStart={this.onQuizzStart}
-            handleViewLeaderboard={this.handleViewLeaderboard}
+        <Router>
+          <Route
+            exact
+            path="/"
+            render={routeProps => (
+              <Home {...routeProps} plants={this.state.plants} error={this.state.error} />
+            )}
           />
-        )}
-        {this.state.currentScreen === "quizz" && (
-          <Game plants={this.state.plants} onQuizzEnd={this.onQuizzEnd} />
-        )}
-        {this.state.currentScreen === "leaderboard" && (
-          <Leaderboard scores={this.state.scores} onQuizzStart={this.onQuizzStart} />
-        )}
+          <Route
+            exact
+            path="/game"
+            render={routeProps =>
+              this.state.plants.length > 0 ? (
+                <Game {...routeProps} plants={this.state.plants} onQuizzEnd={this.onQuizzEnd} />
+              ) : (
+                <Redirect to={{ pathname: "/" }} />
+              )
+            }
+          />
+          <Route
+            exact
+            path="/leaderboard"
+            render={routeProps => <Leaderboard {...routeProps} scores={this.state.scores} />}
+          />
+        </Router>
       </div>
     );
   }

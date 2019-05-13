@@ -1,5 +1,6 @@
 import React from "react";
 import Loader from "../Loader/Loader";
+import { Link } from "react-router-dom";
 
 import "./Home.css";
 
@@ -15,12 +16,16 @@ const Home = ({ plants, error, onQuizzStart, handleViewLeaderboard }) => {
       {(plants.length === 0 || error) && <Loader error={error} />}
       {plants.length > 0 && !error && (
         <>
-          <div className="button Home_button" role="button" onClick={onQuizzStart}>
-            Play Quizz
-          </div>
-          <div className="button Home_button" role="button" onClick={handleViewLeaderboard}>
-            View Scores
-          </div>
+          <Link to="/game">
+            <div className="button Home_button" role="button">
+              Play Quizz
+            </div>
+          </Link>
+          <Link to="/leaderboard">
+            <div className="button Home_button" role="button">
+              View Scores
+            </div>
+          </Link>
         </>
       )}
     </div>
