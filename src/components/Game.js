@@ -1,86 +1,106 @@
 import React, { Component } from "react";
-import { flatten, clone, cloneDeep } from "lodash";
+import { clone, cloneDeep } from "lodash";
 
-import { getData } from "../utils/data";
 import { getQuizz } from "../utils/quizz";
-import Suggestion from "./Suggestion";
-import Question from "./Question";
-import Loader from "./Loader";
-import Score from "./Score";
+import { wait, getScore } from "../utils/helpers";
 
+import Suggestions from "./Suggestions";
+import Question from "./Question";
+import Score from "./Score";
+import Photo from "./Photo";
+
+const QUESTIONS_COUNT = 10;
 class Game extends Component {
-  state = {
-    error: null,
-    plants: [],
-    quizz: [],
-    currentPlantI: 0,
-    currentQuestionI: 0,
-    isAskingQuestion: true,
-    isShowingAnswer: false,
-    scoreStart: 0,
-    score: null,
+  constructor(props) {
+    super(props);
+    this.state = {
+      error: null,
+      quizz: getQuizz({
+        plants: this.props.plants,
+        count: QUESTIONS_COUNT,
+      }),
+      currentPlantI: 0,
+      currentQuestionI: 0,
+      isAskingQuestion: false,
+      isShowingAnswer: false,
+      isHidingSuggestions: true,
+      scoreStart: 0,
+      score: null,
+      quizzStartTime: null,
+    };
+  }
+
+  onPhotoLoaded = () => {
+    this.preloadImage(this.state.currentPlantI);
+    (async () => {
+      await wait(1000);
+      this.setState({
+        isAskingQuestion: true,
+        isHidingSuggestions: false,
+      });
+      await wait(2500);
+      this.setState({
+        quizzStartTime: Date.now(),
+        isAskingQuestion: false,
+        isHidingSuggestions: false,
+      });
+    })();
   };
 
-  componentDidMount() {
-    (async () => {
-      try {
-        const plants = await getData();
-        const quizz = getQuizz(plants);
-        this.setState({ plants, quizz });
-      } catch (error) {
-        this.setState({ error });
-        throw error;
-      }
-    })();
-  }
+  preloadImage = plantI => {
+    const nextPlant = this.state.quizz[plantI + 1];
+    if (!nextPlant) return;
 
-  componentDidUpdate(prevProps, prevState) {
-    if (
-      !prevState.quizz[prevState.currentPlantI] &&
-      this.state.quizz[this.state.currentPlantI]
-    ) {
-      setTimeout(() => {
-        this.setState({ isAskingQuestion: false });
-      }, 1500);
-    }
-  }
+    const nextPlantImage = new Image();
+    nextPlantImage.src = `${process.env.PUBLIC_URL}/images/plants/${nextPlant.image.dir}/${
+      nextPlant.image.fileName
+    }`;
+  };
 
-  answer = (type, name) => {
+  answer = async (type, name) => {
     if (this.state.isShowingAnswer) return;
+    const timeToReply = Date.now() - this.state.quizzStartTime;
     const thisQuizz = clone(this.state.quizz);
     const currentPlant = cloneDeep(this.state.quizz[this.state.currentPlantI]);
     const currentQuestion = currentPlant.questions[this.state.currentQuestionI];
+    const value =
+      name === currentPlant[type] ? Math.max(Math.floor((10000 - timeToReply) / 200), 10) : -5;
     currentQuestion.answer = {
       name,
-      value: name === currentPlant[type] ? 1 : 0,
+      value,
     };
     thisQuizz[this.state.currentPlantI] = currentPlant;
     this.setState({
       isShowingAnswer: true,
       quizz: thisQuizz,
       scoreStart: this.state.score || 0,
-      score:
-        flatten(thisQuizz.map(p => p.questions)).reduce(
-          (acc, q) => acc + (q.answer ? q.answer.value : 0),
-          0,
-        ) * 100,
+      score: getScore(thisQuizz),
     });
-    setTimeout(() => {
+    await wait(1000);
+    const changePlant = this.state.currentQuestionI === 1;
+    if (changePlant && QUESTIONS_COUNT === this.state.currentPlantI + 1) {
+      return this.props.onQuizzEnd({
+        date: Date.now(),
+        score: this.state.score,
+      });
+    }
+    this.setState({
+      isShowingAnswer: false,
+      isHidingSuggestions: true,
+      currentPlantI: changePlant ? this.state.currentPlantI + 1 : this.state.currentPlantI,
+      currentQuestionI: changePlant ? 0 : 1,
+    });
+    if (!changePlant) {
       this.setState({
         isAskingQuestion: true,
-        isShowingAnswer: false,
-        currentPlantI:
-          this.state.currentQuestionI === 1
-            ? this.state.currentPlantI + 1
-            : this.state.currentPlantI,
-        currentQuestionI: this.state.currentQuestionI === 1 ? 0 : 1,
       });
-      setTimeout(() => {
-        this.setState({
-          isAskingQuestion: false,
-        });
-      }, 1500);
-    }, 1000);
+      await wait(2500);
+      this.setState({
+        quizzStartTime: Date.now(),
+        isAskingQuestion: false,
+        isHidingSuggestions: false,
+      });
+    }
   };
 
   render() {
@@ -94,33 +114,17 @@ class Game extends Component {
         {typeof this.state.score === "number" && (
           <Score scoreStart={this.state.scoreStart} score={this.state.score} />
         )}
-        {!currentPlant && <Loader error={this.state.error} />}
         {!!currentPlant && (
           <div className="Game_plant">
-            <div className="Game_plant_photo">
-              <div className="Game_plant_photo_container">
-                <img
-                  key={currentPlant.image.file}
-                  src={currentPlant.image.file}
-                  alt={currentPlant.name}
-                />
-              </div>
+            <Photo currentPlant={currentPlant} onPhotoLoaded={this.onPhotoLoaded} />
+            <div className="Game_plant_options">
+              {this.state.isAskingQuestion && !!currentQuestion && (
+                <Question questionType={currentQuestion.type} />
+              )}
+              {!this.state.isAskingQuestion && !this.state.isHidingSuggestions && (
+                <Suggestions currentQuestion={currentQuestion} answer={this.answer} />
+              )}
             </div>
-            {this.state.isAskingQuestion && !!currentQuestion && (
-              <Question questionType={currentQuestion.type} />
-            )}
-            {!this.state.isAskingQuestion && (
-              <div className="Game_plant_suggestions">
-                {currentQuestion.suggestions.map(s => (
-                  <Suggestion
-                    key={s}
-                    currentQuestion={currentQuestion}
-                    suggestion={s}
-                    answer={this.answer}
-                  />
-                ))}
-              </div>
-            )}
           </div>
         )}
       </div>

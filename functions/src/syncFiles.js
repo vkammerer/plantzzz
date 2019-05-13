@@ -74,12 +74,7 @@ const uploadToStorage = ({ localPath, image }) => bucket.upload(localPath, {
   destination: `/drive/375/${image.path}/${image.name}`
 });
 
-exports.syncFiles = functions.https.onRequest(async (req, res) => {
-  const startIndex = parseInt(req.query.start);
-  const endIndex = parseInt(req.query.end);
-  if (isNaN(startIndex) || isNaN(endIndex)) {
-    return res.json({ err: 'Invalid arguments' })
-  }
+const treatFiles = (startIndex, endIndex) => new Promise(async (resolve, reject) => {
   try {
     const driveFilesMeta = await getDriveFilesMeta();
     const driveItems = getItemsFromDriveMeta(driveFilesMeta);
@@ -92,29 +87,22 @@ exports.syncFiles = functions.https.onRequest(async (req, res) => {
       const testLocalFile = await downloadFromDrive(img);
       return await uploadToStorage(testLocalFile);
     }, Promise.resolve());
-    return res.json({ allGood: true });
+    return resolve({ allGood: true });
   }
   catch (err) {
-    return res.json({ err });
+    return reject(err);
   }
 });
 
-// (async () => {
-//   let step = 0;
-//   try {
-//     const driveFilesMeta = await getDriveFilesMeta(auth);
-//     step++;
-//     const items = getItemsFromDriveMeta(driveFilesMeta);
-//     step++;
-//     const testDriveFile = items[1].images[0];
-//     step++;
-//     const testLocalFile = await downloadFromDrive(testDriveFile);
-//     step++;
-//     const testStorageFile = await uploadToStorage(testLocalFile);
-//     return console.log({ testStorageFile });
-//   }
-//   catch (e) {
-//     console.error(step);
-//     throw e;
-//   }
-// })();
+exports.syncFiles = functions.https.onRequest(async (req, res) => {
+  const startIndex = parseInt(req.query.start);
+  const endIndex = parseInt(req.query.end);
+  if (isNaN(startIndex) || isNaN(endIndex)) {
+    return res.json({ err: 'Invalid arguments' })
+  }
+  return treatFiles(startIndex, endIndex)
+    .then(result => res.json(result))
+    .catch(err => res.send({ err }))
+});
+
+treatFiles(0, 2);
