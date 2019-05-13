@@ -7,8 +7,7 @@ html {
 }
 
 body {
-  background: #00543f;
-  background-image: url("./images/bg.png");
+  background: black;
 }
 
 .App {
@@ -21,6 +20,7 @@ body {
   margin: 0 auto;
   overflow: hidden;
   font-family: "Dekko";
+  background-image: url("./images/bg.png");
 }
 
 header {
@@ -56,7 +56,7 @@ header .appName span:nth-child(4) {
 }
 
 header .appDomain {
-  font-size: 0.8rem;
+  font-size: 0.86rem;
   line-height: 0.5rem;
   height: 1.5rem;
   font-weight: bold;
@@ -76,7 +76,7 @@ header .appDomain {
   height: 2.6rem;
   min-width: 2.6rem;
   font-size: 1.2rem;
-  background: #4e423e;
+  background: #2b2422;
   border-radius: 1.5rem;
   border: 2px solid #8a6d64;
   line-height: 2.6rem;
@@ -158,8 +158,8 @@ header .appDomain {
   color: white;
   line-height: 1.7rem;
   animation-name: questionAnimation;
-  animation-delay: 500ms;
-  animation-duration: 1500ms;
+  animation-delay: 300ms;
+  animation-duration: 1200ms;
   animation-timing-function: cubic-bezier(0.6, -0.28, 0.735, 0.045);
   animation-timing-function: linear;
   animation-fill-mode: forwards;
@@ -170,10 +170,10 @@ header .appDomain {
   0% {
     transform: translate3d(0, 13.5rem, 0);
   }
-  20% {
+  12% {
     transform: translate3d(0, 0, 0);
   }
-  80% {
+  88% {
     transform: translate3d(0, 0, 0);
   }
   100% {
@@ -204,12 +204,13 @@ header .appDomain {
 
 .Game_plant_suggestions_botanical .Game_plant_suggestion {
   font-style: italic;
-  background: #844719;
-  border: 2px solid #a0b38e;
+  background: #543d2ccc;
+  border: 2px solid #ab876b;
 }
 
 .Game_plant_suggestions_common .Game_plant_suggestion {
-  background: #194b84;
+  background: #323b5fcc;
+  border: 2px solid #8e99c7;
 }
 
 .Game_plant_suggestion {
@@ -266,6 +267,7 @@ header .appDomain {
 .Leaderboard {
   color: white;
   padding: 0.8rem 2rem 0;
+  text-shadow: 0 1px 3px rgba(0, 0, 0, 0.7);
 }
 
 .Leaderboard_header {

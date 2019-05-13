@@ -38,7 +38,7 @@ class Game extends Component {
         isAskingQuestion: true,
         isHidingSuggestions: false,
       });
-      await wait(2500);
+      await wait(2000);
       this.setState({
         quizzStartTime: Date.now(),
         isAskingQuestion: false,
@@ -94,7 +94,7 @@ class Game extends Component {
       this.setState({
         isAskingQuestion: true,
       });
-      await wait(2500);
+      await wait(2000);
       this.setState({
         quizzStartTime: Date.now(),
         isAskingQuestion: false,

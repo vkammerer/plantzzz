@@ -64,10 +64,7 @@ class App extends Component {
           </div>
           <div className="appDomain">.web.app</div>
         </header>
-        {(this.state.plants.length === 0 || this.state.error) && (
-          <Loader error={this.state.error} />
-        )}
-        {this.state.currentScreen === "home" && this.state.plants.length > 0 && (
+        {this.state.currentScreen === "home" && (
           <div className="Home">
             <div className="Home_intro">
               <p>
@@ -75,12 +72,23 @@ class App extends Component {
               </p>
               <p>The faster you answer, the more points you get!</p>
             </div>
-            <div className="button Home_button" role="button" onClick={this.onQuizzStart}>
-              Play Quizz
-            </div>
-            <div className="button Home_button" role="button" onClick={this.handleViewLeaderboard}>
-              View Scores
-            </div>
+            {(this.state.plants.length === 0 || this.state.error) && (
+              <Loader error={this.state.error} />
+            )}
+            {this.state.plants.length > 0 && !this.state.error && (
+              <>
+                <div className="button Home_button" role="button" onClick={this.onQuizzStart}>
+                  Play Quizz
+                </div>
+                <div
+                  className="button Home_button"
+                  role="button"
+                  onClick={this.handleViewLeaderboard}
+                >
+                  View Scores
+                </div>
+              </>
+            )}
           </div>
         )}
         {this.state.currentScreen === "quizz" && (

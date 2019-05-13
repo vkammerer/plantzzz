@@ -1,3 +1,3 @@
 export const getData = async () => {
-  return await fetch('/data.json').then(res => res.json());
-}
+  return await fetch("/data.json").then(res => res.json());
+};
