@@ -1,0 +1,41 @@
+.Game_plant_photo {
+  position: relative;
+  flex-grow: 1;
+}
+
+.Game_plant_photo_container {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 1rem;
+  right: 1rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.Game_plant_photo img {
+  display: block;
+  margin: 0 auto;
+  max-height: 100%;
+  max-width: 100%;
+  border: 2px solid white;
+  box-shadow: 0 1px 0.5rem 0px rgba(0, 0, 0, 0.4);
+  transform: scale(0);
+}
+
+.Game_plant_photo img.Game_plant_photo_loaded {
+  animation-name: imageAnimation;
+  animation-duration: 500ms;
+  animation-timing-function: cubic-bezier(0.19, 1.14, 0.8, 1.14);
+  animation-fill-mode: forwards;
+}
+
+@keyframes imageAnimation {
+  0% {
+    transform: scale3d(0, 0, 0);
+  }
+  100% {
+    transform: scale3d(1, 1, 1);
+  }
+}

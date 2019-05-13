@@ -1,13 +1,15 @@
 import React, { Component } from "react";
 import { clone, cloneDeep } from "lodash";
 
-import { getQuizz } from "../utils/quizz";
-import { wait, getScore } from "../utils/helpers";
+import { getQuizz } from "../../utils/quizz";
+import { wait, getScore } from "../../utils/helpers";
 
-import Suggestions from "./Suggestions";
-import Question from "./Question";
-import Score from "./Score";
-import Photo from "./Photo";
+import Suggestions from "../Suggestions/Suggestions";
+import Question from "../Question/Question";
+import Score from "../Score/Score";
+import Photo from "../Photo/Photo";
+
+import "./Game.css";
 
 const QUESTIONS_COUNT = 10;
 class Game extends Component {
@@ -30,20 +32,23 @@ class Game extends Component {
     };
   }
 
+  startQuestion = async () => {
+    this.setState({
+      isAskingQuestion: true,
+    });
+    await wait(2000);
+    this.setState({
+      quizzStartTime: Date.now(),
+      isAskingQuestion: false,
+      isHidingSuggestions: false,
+    });
+  };
+
   onPhotoLoaded = () => {
     this.preloadImage(this.state.currentPlantI);
     (async () => {
-      await wait(1000);
-      this.setState({
-        isAskingQuestion: true,
-        isHidingSuggestions: false,
-      });
-      await wait(2000);
-      this.setState({
-        quizzStartTime: Date.now(),
-        isAskingQuestion: false,
-        isHidingSuggestions: false,
-      });
+      await wait(500);
+      this.startQuestion();
     })();
   };
 
@@ -90,17 +95,7 @@ class Game extends Component {
       currentPlantI: changePlant ? this.state.currentPlantI + 1 : this.state.currentPlantI,
       currentQuestionI: changePlant ? 0 : 1,
     });
-    if (!changePlant) {
-      this.setState({
-        isAskingQuestion: true,
-      });
-      await wait(2000);
-      this.setState({
-        quizzStartTime: Date.now(),
-        isAskingQuestion: false,
-        isHidingSuggestions: false,
-      });
-    }
+    if (!changePlant) this.startQuestion();
   };
 
   render() {

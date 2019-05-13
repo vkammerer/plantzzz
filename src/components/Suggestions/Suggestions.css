@@ -1,0 +1,74 @@
+.Game_plant_suggestion {
+  flex-basis: 2rem;
+  line-height: 2rem;
+  cursor: pointer;
+  border: 2px solid #a0b38e;
+  margin-bottom: calc(1rem - 4px);
+  text-shadow: 0 0 0.4em black;
+  font-size: 1.25rem;
+  border-radius: 1rem;
+  box-shadow: 0 1px 0.5rem 0px rgba(0, 0, 0, 0.4);
+  color: rgba(255, 255, 255, 1);
+}
+
+.Game_plant_suggestions_botanical .Game_plant_suggestion {
+  font-style: italic;
+  background: #543d2ccc;
+  border: 2px solid #ab876b;
+}
+
+.Game_plant_suggestions_common .Game_plant_suggestion {
+  background: #323b5fcc;
+  border: 2px solid #8e99c7;
+}
+
+.Game_plant_suggestion {
+  transition: 0s 1s;
+}
+.Game_plant_suggestion:active {
+  transition: 0s;
+}
+
+.Game_plant_suggestions_true .Game_plant_suggestion:active {
+  background: green;
+  border-color: #b0e6b0;
+}
+
+.Game_plant_suggestions_false .Game_plant_suggestion:active {
+  border-color: #fdc4c4;
+  background: red;
+}
+
+.Game_plant_suggestions_true,
+.Game_plant_suggestions_false {
+  animation-delay: 500ms;
+  animation-duration: 500ms;
+  animation-timing-function: cubic-bezier(0.6, -0.1, 0.735, 0.045);
+  animation-fill-mode: forwards;
+}
+
+.Game_plant_suggestions_true {
+  animation-name: suggestionAnimationTrue;
+}
+
+.Game_plant_suggestions_false {
+  animation-name: suggestionAnimationFalse;
+}
+
+@keyframes suggestionAnimationTrue {
+  0% {
+    transform: translate3d(0, 0, 0);
+  }
+  100% {
+    transform: translate3d(100vw, 0, 0);
+  }
+}
+
+@keyframes suggestionAnimationFalse {
+  0% {
+    transform: translate3d(0, 0, 0);
+  }
+  100% {
+    transform: translate3d(-100vw, 0, 0);
+  }
+}

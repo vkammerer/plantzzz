@@ -3,7 +3,7 @@
 }
 
 html {
-  font-size: calc(var(--vh) * 2.7);
+  font-size: var(--rem);
 }
 
 body {
@@ -63,30 +63,6 @@ header .appDomain {
   letter-spacing: 0.05rem;
 }
 
-.Game {
-  flex-basis: auto;
-  flex-grow: 1;
-  display: flex;
-  flex-direction: column;
-}
-
-.Game_score {
-  position: absolute;
-  padding: 0 0.7rem;
-  height: 2.6rem;
-  min-width: 2.6rem;
-  font-size: 1.2rem;
-  background: #2b2422;
-  border-radius: 1.5rem;
-  border: 2px solid #8a6d64;
-  line-height: 2.6rem;
-  text-align: center;
-  right: 1rem;
-  color: white;
-  top: 0.7rem;
-  box-shadow: 0 1px 0.5rem 0px rgba(0, 0, 0, 0.4);
-}
-
 .Game_message {
   color: white;
   text-align: center;
@@ -99,207 +75,16 @@ header .appDomain {
   flex-direction: column;
 }
 
-.Game_plant_photo {
-  position: relative;
-  flex-grow: 1;
-}
-
-.Game_plant_photo_container {
-  position: absolute;
-  top: 0;
-  bottom: 0;
-  left: 1rem;
-  right: 1rem;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-}
-
-.Game_plant_photo img {
-  display: block;
-  margin: 0 auto;
-  max-height: 100%;
-  max-width: 100%;
-  border: 2px solid white;
-  box-shadow: 0 1px 0.5rem 0px rgba(0, 0, 0, 0.4);
-  transform: scale(0);
-}
-
-.Game_plant_photo img.Game_plant_photo_loaded {
-  animation-name: imageAnimation;
-  animation-duration: 500ms;
-  animation-timing-function: cubic-bezier(0.19, 1.14, 0.8, 1.14);
-  animation-fill-mode: forwards;
-}
-
-@keyframes imageAnimation {
-  0% {
-    transform: scale3d(0, 0, 0);
-  }
-  100% {
-    transform: scale3d(1, 1, 1);
-  }
-}
-
 .Game_plant_options {
   flex-basis: 13.5rem;
 }
 
-.Game_plant_question,
-.Game_plant_suggestions {
+.Game_plant_options > div {
   height: 100%;
   display: flex;
   flex-direction: column;
   text-align: center;
   padding: 1rem 1rem 0;
-}
-
-.Game_plant_question {
-  color: white;
-  line-height: 1.7rem;
-  animation-name: questionAnimation;
-  animation-delay: 300ms;
-  animation-duration: 1200ms;
-  animation-timing-function: cubic-bezier(0.6, -0.28, 0.735, 0.045);
-  animation-timing-function: linear;
-  animation-fill-mode: forwards;
-  transform: translate3d(0, 13.5rem, 0);
-}
-
-@keyframes questionAnimation {
-  0% {
-    transform: translate3d(0, 13.5rem, 0);
-  }
-  12% {
-    transform: translate3d(0, 0, 0);
-  }
-  88% {
-    transform: translate3d(0, 0, 0);
-  }
-  100% {
-    transform: translate3d(0, 13.5rem, 0);
-  }
-}
-
-.Game_plant_question span:first-child {
-  font-size: 1.4rem;
-}
-
-.Game_plant_question span:last-child {
-  font-size: 1.7rem;
-}
-
-.Game_plant_suggestion {
-  flex-basis: 2rem;
-  line-height: 2rem;
-  cursor: pointer;
-  border: 2px solid #a0b38e;
-  margin-bottom: calc(1rem - 4px);
-  text-shadow: 0 0 0.4em black;
-  font-size: 1.25rem;
-  border-radius: 1rem;
-  box-shadow: 0 1px 0.5rem 0px rgba(0, 0, 0, 0.4);
-  color: rgba(255, 255, 255, 1);
-}
-
-.Game_plant_suggestions_botanical .Game_plant_suggestion {
-  font-style: italic;
-  background: #543d2ccc;
-  border: 2px solid #ab876b;
-}
-
-.Game_plant_suggestions_common .Game_plant_suggestion {
-  background: #323b5fcc;
-  border: 2px solid #8e99c7;
-}
-
-.Game_plant_suggestion {
-  transition: 0s 1s;
-}
-.Game_plant_suggestion:active {
-  transition: 0s;
-}
-
-.Game_plant_suggestions_true .Game_plant_suggestion:active {
-  background: green;
-  border-color: #b0e6b0;
-}
-
-.Game_plant_suggestions_false .Game_plant_suggestion:active {
-  border-color: #fdc4c4;
-  background: red;
-}
-
-.Game_plant_suggestions_true,
-.Game_plant_suggestions_false {
-  animation-delay: 500ms;
-  animation-duration: 500ms;
-  animation-timing-function: cubic-bezier(0.6, -0.1, 0.735, 0.045);
-  animation-fill-mode: forwards;
-}
-
-.Game_plant_suggestions_true {
-  animation-name: suggestionAnimationTrue;
-}
-
-.Game_plant_suggestions_false {
-  animation-name: suggestionAnimationFalse;
-}
-
-@keyframes suggestionAnimationTrue {
-  0% {
-    transform: translate3d(0, 0, 0);
-  }
-  100% {
-    transform: translate3d(100vw, 0, 0);
-  }
-}
-
-@keyframes suggestionAnimationFalse {
-  0% {
-    transform: translate3d(0, 0, 0);
-  }
-  100% {
-    transform: translate3d(-100vw, 0, 0);
-  }
-}
-
-.Leaderboard {
-  color: white;
-  padding: 0.8rem 2rem 0;
-  text-shadow: 0 1px 3px rgba(0, 0, 0, 0.7);
-}
-
-.Leaderboard_header {
-  text-align: center;
-  font-size: 1.6rem;
-  padding-bottom: 0.3rem;
-}
-
-.Leaderboard_score {
-  position: relative;
-  display: flex;
-  justify-content: space-between;
-  line-height: 2rem;
-}
-
-.Leaderboard_score:not(:last-child):after {
-  content: "";
-  position: absolute;
-  bottom: 0;
-  left: -0.5rem;
-  right: -0.5rem;
-  height: 1px;
-  background: rgba(255, 255, 255, 0.3);
-}
-
-.Leaderboard_score_score {
-  font-weight: bold;
-  font-size: 1.1rem;
-}
-
-.Home {
-  padding: 1rem;
 }
 
 .button {
@@ -312,34 +97,4 @@ header .appDomain {
   box-shadow: 0 1px 0.5rem 0px rgba(0, 0, 0, 0.4);
   color: rgba(255, 255, 255, 1);
   background: #333;
-}
-
-.Leaderboard_button {
-  margin-top: 2rem;
-}
-
-.Home_button {
-  margin-bottom: 1rem;
-}
-
-.Home_intro {
-  padding: 1rem;
-  color: white;
-  background: rgba(0, 0, 0, 0.2);
-  margin: 1rem 0 2rem;
-  border: 1px solid rgba(0, 0, 0, 0.25);
-}
-
-.Home_intro p {
-  margin: 0.5rem 0;
-  line-height: 1.4rem;
-}
-
-.Home_intro span {
-  font-weight: bold;
-}
-.Home_intro span:after {
-  content: " ";
-  width: 0.3rem;
-  display: inline-block;
 }

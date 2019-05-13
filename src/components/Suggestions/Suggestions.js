@@ -1,6 +1,8 @@
 import React from "react";
 import classnames from "classnames";
 
+import "./Suggestions.css";
+
 const Suggestion = ({ currentQuestion, suggestion, answer }) => {
   const thisClass = classnames("Game_plant_suggestion");
   return (

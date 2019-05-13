@@ -1,0 +1,34 @@
+.Game_plant_question {
+  color: white;
+  line-height: 1.7rem;
+  animation-name: questionAnimation;
+  animation-delay: 300ms;
+  animation-duration: 1200ms;
+  animation-timing-function: cubic-bezier(0.6, -0.28, 0.735, 0.045);
+  animation-timing-function: linear;
+  animation-fill-mode: forwards;
+  transform: translate3d(0, 13.5rem, 0);
+}
+
+@keyframes questionAnimation {
+  0% {
+    transform: translate3d(0, 13.5rem, 0);
+  }
+  12% {
+    transform: translate3d(0, 0, 0);
+  }
+  88% {
+    transform: translate3d(0, 0, 0);
+  }
+  100% {
+    transform: translate3d(0, 13.5rem, 0);
+  }
+}
+
+.Game_plant_question span:first-child {
+  font-size: 1.4rem;
+}
+
+.Game_plant_question span:last-child {
+  font-size: 1.7rem;
+}

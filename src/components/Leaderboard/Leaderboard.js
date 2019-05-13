@@ -2,6 +2,8 @@ import React from "react";
 
 import { sortBy, reverse } from "lodash";
 
+import "./Leaderboard.css";
+
 var dateOptions = {
   year: "numeric",
   month: "long",

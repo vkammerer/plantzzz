@@ -1,0 +1,36 @@
+.Leaderboard {
+  color: white;
+  padding: 0.8rem 2rem 0;
+  text-shadow: 0 1px 3px rgba(0, 0, 0, 0.7);
+}
+
+.Leaderboard_header {
+  text-align: center;
+  font-size: 1.6rem;
+  padding-bottom: 0.3rem;
+}
+
+.Leaderboard_score {
+  position: relative;
+  display: flex;
+  justify-content: space-between;
+  line-height: 2rem;
+}
+
+.Leaderboard_score:not(:last-child):after {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  left: -0.5rem;
+  right: -0.5rem;
+  height: 1px;
+  background: rgba(255, 255, 255, 0.3);
+}
+
+.Leaderboard_score_score {
+  font-weight: bold;
+  font-size: 1.1rem;
+}
+.Leaderboard_button {
+  margin-top: 2rem;
+}

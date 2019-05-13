@@ -1,9 +1,9 @@
 import React, { Component } from "react";
 
 import { getData } from "./utils/data";
-import Game from "./components/Game";
-import Leaderboard from "./components/Leaderboard";
-import Loader from "./components/Loader";
+import Game from "./components/Game/Game";
+import Leaderboard from "./components/Leaderboard/Leaderboard";
+import Home from "./components/Home/Home";
 
 import "./App.css";
 
@@ -65,31 +65,12 @@ class App extends Component {
           <div className="appDomain">.web.app</div>
         </header>
         {this.state.currentScreen === "home" && (
-          <div className="Home">
-            <div className="Home_intro">
-              <p>
-                <span>Plantzzz</span> helps you identify plants and test your knowledge about them.
-              </p>
-              <p>The faster you answer, the more points you get!</p>
-            </div>
-            {(this.state.plants.length === 0 || this.state.error) && (
-              <Loader error={this.state.error} />
-            )}
-            {this.state.plants.length > 0 && !this.state.error && (
-              <>
-                <div className="button Home_button" role="button" onClick={this.onQuizzStart}>
-                  Play Quizz
-                </div>
-                <div
-                  className="button Home_button"
-                  role="button"
-                  onClick={this.handleViewLeaderboard}
-                >
-                  View Scores
-                </div>
-              </>
-            )}
-          </div>
+          <Home
+            plants={this.state.plants}
+            error={this.state.error}
+            onQuizzStart={this.onQuizzStart}
+            handleViewLeaderboard={this.handleViewLeaderboard}
+          />
         )}
         {this.state.currentScreen === "quizz" && (
           <Game plants={this.state.plants} onQuizzEnd={this.onQuizzEnd} />

@@ -1,7 +1,8 @@
 import React, { Component } from "react";
 import classnames from "classnames";
 
-import { wait } from "../utils/helpers";
+import { wait } from "../../utils/helpers";
+import "./Photo.css";
 
 class Photo extends Component {
   state = { loaded: false };
@@ -19,7 +20,7 @@ class Photo extends Component {
     const thisClass = classnames({
       Game_plant_photo_loaded: this.state.loaded,
     });
-    const currentPlantImagePath = `${process.env.PUBLIC_URL}/images/plants/${
+    const currentPlantImagePath = `${process.env.PUBLIC_URL}/images/plants${
       this.props.currentPlant.image.dir
     }/${this.props.currentPlant.image.fileName}`;
     return (

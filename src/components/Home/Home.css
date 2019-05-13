@@ -1,0 +1,29 @@
+.Home {
+  padding: 1rem;
+}
+
+.Home_button {
+  margin-bottom: 1rem;
+}
+
+.Home_intro {
+  padding: 1rem;
+  color: white;
+  background: rgba(0, 0, 0, 0.2);
+  margin: 1rem 0 2rem;
+  border: 1px solid rgba(0, 0, 0, 0.25);
+}
+
+.Home_intro p {
+  margin: 0.5rem 0;
+  line-height: 1.4rem;
+}
+
+.Home_intro span {
+  font-weight: bold;
+}
+.Home_intro span:after {
+  content: " ";
+  width: 0.3rem;
+  display: inline-block;
+}
