@@ -25,16 +25,16 @@
 .Game_plant_suggestion {
   transition: 0s 1s;
 }
-.Game_plant_suggestion:active {
+.Game_plant_suggestion_selected {
   transition: 0s;
 }
 
-.Game_plant_suggestions_true .Game_plant_suggestion:active {
+.Game_plant_suggestions_true .Game_plant_suggestion_selected {
   background: green;
   border-color: #b0e6b0;
 }
 
-.Game_plant_suggestions_false .Game_plant_suggestion:active {
+.Game_plant_suggestions_false .Game_plant_suggestion_selected {
   border-color: #fdc4c4;
   background: red;
 }

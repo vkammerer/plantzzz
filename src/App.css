@@ -16,7 +16,7 @@ body {
   flex-direction: column;
   height: calc(var(--vh, 1vh) * 100);
   width: 100vw;
-  max-width: calc(var(--vh) * 75);
+  max-width: calc(var(--vh) * 60);
   margin: 0 auto;
   overflow: hidden;
   font-family: "Dekko";

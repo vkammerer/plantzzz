@@ -3,8 +3,10 @@ import classnames from "classnames";
 
 import "./Suggestions.css";
 
-const Suggestion = ({ currentQuestion, suggestion, answer }) => {
-  const thisClass = classnames("Game_plant_suggestion");
+const Suggestion = ({ currentQuestion, suggestion, answer, selected }) => {
+  const thisClass = classnames("Game_plant_suggestion", {
+    Game_plant_suggestion_selected: selected,
+  });
   return (
     <div
       role="button"
@@ -27,7 +29,13 @@ const Suggestions = ({ currentQuestion, answer }) => {
   return (
     <div className={thisClass}>
       {currentQuestion.suggestions.map(s => (
-        <Suggestion key={s} currentQuestion={currentQuestion} suggestion={s} answer={answer} />
+        <Suggestion
+          key={s}
+          currentQuestion={currentQuestion}
+          suggestion={s}
+          answer={answer}
+          selected={currentQuestion.answer && currentQuestion.answer.name === s}
+        />
       ))}
     </div>
   );
