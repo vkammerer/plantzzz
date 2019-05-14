@@ -6,7 +6,9 @@ import * as serviceWorker from "./serviceWorker";
 import { initCorrectVh } from "./utils/vh";
 import ReactGA from "react-ga";
 
-ReactGA.initialize("UA-140160255-1");
+if (window.location.hostname !== "localhost") {
+  ReactGA.initialize("UA-140160255-1");
+}
 
 initCorrectVh();
 
