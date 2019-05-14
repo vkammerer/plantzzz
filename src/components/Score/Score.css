@@ -69,12 +69,12 @@
 
 .Game_score:before {
   content: "";
-  height: calc(100% + 4px);
-  width: calc(100% + 4px);
+  height: 100%;
+  width: 100%;
   display: block;
   position: absolute;
-  top: -2px;
-  right: -2px;
+  top: 0px;
+  right: 0px;
 }
 
 .Game_score_up:before {

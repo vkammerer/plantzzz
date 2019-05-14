@@ -1,6 +1,6 @@
 .Leaderboard {
   color: white;
-  padding: 0.8rem 2rem 0;
+  padding: 0 2rem 0;
   text-shadow: 0 1px 3px rgba(0, 0, 0, 0.7);
 }
 
@@ -40,5 +40,5 @@
   font-size: 1.1rem;
 }
 .Leaderboard_button {
-  margin-top: 2rem;
+  margin-top: 1.5rem;
 }
