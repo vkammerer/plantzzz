@@ -1,9 +1,9 @@
-.Game_plant_photo {
+.Game_Photo {
   position: relative;
   flex-grow: 1;
 }
 
-.Game_plant_photo_container {
+.Game_Photo_container {
   position: absolute;
   top: 0;
   bottom: 0;
@@ -12,19 +12,12 @@
   display: flex;
   flex-direction: column;
   justify-content: center;
+  opacity: 0;
 }
 
-.Game_plant_photo img {
-  display: block;
-  margin: 0 auto;
-  max-height: 100%;
-  max-width: 100%;
-  border: 2px solid white;
-  box-shadow: 0 1px 0.5rem 0px rgba(0, 0, 0, 0.4);
+.Game_Photo_container.Game_Photo_container_loaded {
   transform: scale(0);
-}
-
-.Game_plant_photo img.Game_plant_photo_loaded {
+  opacity: 1;
   animation-name: imageAnimation;
   animation-duration: 500ms;
   animation-timing-function: cubic-bezier(0.19, 1.14, 0.8, 1.14);
@@ -33,9 +26,18 @@
 
 @keyframes imageAnimation {
   0% {
-    transform: scale3d(0, 0, 0);
+    transform: scale(0);
   }
   100% {
-    transform: scale3d(1, 1, 1);
+    transform: scale(1);
   }
+}
+
+.Game_Photo img {
+  display: block;
+  margin: 0 auto;
+  max-height: 100%;
+  max-width: 100%;
+  border: 2px solid white;
+  box-shadow: 0 1px 0.5rem 0px rgba(0, 0, 0, 0.4);
 }

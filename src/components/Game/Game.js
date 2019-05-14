@@ -47,7 +47,7 @@ class Game extends Component {
   onPhotoLoaded = () => {
     this.preloadImage(this.state.currentPlantI);
     (async () => {
-      await wait(500);
+      await wait(200);
       this.startQuestion();
     })();
   };
@@ -117,7 +117,11 @@ class Game extends Component {
         )}
         {!!currentPlant && (
           <div className="Game_plant">
-            <Photo currentPlant={currentPlant} onPhotoLoaded={this.onPhotoLoaded} />
+            <Photo
+              currentPlantI={this.state.currentPlantI}
+              currentPlant={currentPlant}
+              onPhotoLoaded={this.onPhotoLoaded}
+            />
             <div className="Game_plant_options">
               {this.state.isAskingQuestion && !!currentQuestion && (
                 <Question questionType={currentQuestion.type} />

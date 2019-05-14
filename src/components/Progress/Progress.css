@@ -1,0 +1,9 @@
+.Game_Progress {
+  position: absolute;
+  height: 1.1rem;
+  background: #ffffff;
+  font-size: 0.85rem;
+  text-align: center;
+  line-height: 1.25rem;
+  padding: 0 0.35rem;
+}
