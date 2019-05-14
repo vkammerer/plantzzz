@@ -13,12 +13,12 @@
 
 .Game_plant_suggestions_botanical .Game_plant_suggestion {
   font-style: italic;
-  background: #543d2ccc;
+  background: rgba(140, 63, 23, 0.8);
   border: 2px solid #ab876b;
 }
 
 .Game_plant_suggestions_common .Game_plant_suggestion {
-  background: #323b5fcc;
+  background: rgba(38, 72, 128, 0.8);
   border: 2px solid #8e99c7;
 }
 

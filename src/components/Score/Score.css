@@ -1,20 +1,22 @@
 .Game_score {
   position: absolute;
+  transform: scale(0.8);
+  overflow: hidden;
   padding: 0 calc(0.7rem * 5 / 4);
   height: calc(2.6rem * 5 / 4);
   min-width: calc(3.6rem * 5 / 4);
   font-size: calc(1.2rem * 5 / 4);
-  background: #211f1e;
-  border-radius: calc(1.5rem * 5 / 4);
-  border: 2px solid #86807e;
   line-height: 100%;
   text-align: center;
   right: calc(1rem * 4 / 5);
-  color: white;
   top: calc(0.7rem * 4 / 5);
-  box-shadow: 0 1px 0.5rem 0px rgba(0, 0, 0, 0.4);
-  transform: scale(0.8);
-  overflow: hidden;
+  background: rgba(0, 0, 0, 0.55);
+  color: white;
+  box-shadow: 0 1px 0.1rem 0px rgba(0, 0, 0, 0.4);
+  outline: 1px solid rgba(0, 0, 0, 0.15);
+  font-weight: bold;
+  text-shadow: 0 1px 3px rgba(0, 0, 0, 0.7);
+  letter-spacing: 2px;
 }
 
 .Game_score > div {
@@ -24,18 +26,15 @@
 
 .Game_score_up,
 .Game_score_down {
-  animation-name: scoreAnimation;
   animation-duration: 300ms;
   animation-timing-function: cubic-bezier(0.1, 0.73, 0, 0.37);
 }
 
 .Game_score_up {
   animation-name: scoreAnimationUp;
-  border-color: #b0e6b0;
 }
 .Game_score_down {
   animation-name: scoreAnimationDown;
-  border-color: #fdc4c4;
 }
 
 @keyframes scoreAnimationUp {
@@ -101,7 +100,7 @@
   15% {
     opacity: 1;
   }
-  80% {
+  50% {
     opacity: 1;
   }
   100% {

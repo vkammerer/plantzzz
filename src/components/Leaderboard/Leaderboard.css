@@ -10,6 +10,14 @@
   padding-bottom: 0.3rem;
 }
 
+.Leaderboard_content {
+  padding: 1rem;
+  background: rgba(0, 0, 0, 0.55);
+  color: white;
+  box-shadow: 0 1px 0.1rem 0px rgba(0, 0, 0, 0.4);
+  outline: 1px solid rgba(0, 0, 0, 0.15);
+}
+
 .Leaderboard_score {
   position: relative;
   display: flex;

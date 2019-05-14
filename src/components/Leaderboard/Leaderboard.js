@@ -27,14 +27,16 @@ const Leaderboard = ({ scores, onQuizzStart }) => {
   return (
     <div className="Leaderboard">
       <div className="Leaderboard_header">Scores - Top 10</div>
-      {augmentedScores.length === 0 && "No quizz completed yet"}
-      {augmentedScores.length > 0 &&
-        augmentedScores.map(s => (
-          <div key={s.date} className="Leaderboard_score">
-            <div className="Leaderboard_score_date">{s.day}</div>
-            <div className="Leaderboard_score_score">{s.score}</div>
-          </div>
-        ))}
+      <div className="Leaderboard_content">
+        {augmentedScores.length === 0 && "No quizz completed yet"}
+        {augmentedScores.length > 0 &&
+          augmentedScores.map(s => (
+            <div key={s.date} className="Leaderboard_score">
+              <div className="Leaderboard_score_date">{s.day}</div>
+              <div className="Leaderboard_score_score">{s.score}</div>
+            </div>
+          ))}
+      </div>
       <Link to="/game">
         <div className="button Leaderboard_button" role="button">
           Play new Quizz

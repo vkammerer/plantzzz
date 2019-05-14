@@ -8,32 +8,24 @@ import "./Score.css";
 class Score extends Component {
   state = { direction: null };
   componentDidMount() {
-    this.mounted = true;
     if (0 < this.props.score) {
-      this.setState({ direction: "up" });
-      this.reset();
+      this.kick("up");
     } else if (0 > this.props.score) {
-      this.setState({ direction: "down" });
-      this.reset();
+      this.kick("down");
     }
   }
-  reset = async () => {
-    await wait(1200);
-    if (this.mounted) {
-      this.setState({ direction: null });
-    }
+  kick = async direction => {
+    // TODO OMG remove this!
+    this.setState({ direction: null });
+    await wait(0);
+    this.setState({ direction });
   };
   componentDidUpdate(prevProps) {
     if (prevProps.score < this.props.score) {
-      this.setState({ direction: "up" });
-      this.reset();
+      this.kick("up");
     } else if (prevProps.score > this.props.score) {
-      this.setState({ direction: "down" });
-      this.reset();
+      this.kick("down");
     }
-  }
-  componentWillUnmount() {
-    this.mounted = false;
   }
   render() {
     const thisClass = classnames("Game_score", {
