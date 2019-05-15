@@ -37,12 +37,16 @@ const getImagesPaths = dir => {
   await imagesMeta.reduce(async (p, { dir, fileName }) => {
     await p;
     const inputDir = `${inputFolderPath}${dir}`;
-    const outputDir = `${outputFolderPath}${dir}`;
-    await fs.ensureDir(outputDir);
-    return sharp(`${inputDir}/${fileName}`)
-      .resize(375)
-      .rotate()
-      .toFile(`${outputDir}/${fileName}`);
+    const supportedWidths = [750];
+    await supportedWidths.reduce(async (p, w) => {
+      const outputDir = `${outputFolderPath}/${w.toString()}${dir}`;
+      await p;
+      await fs.ensureDir(outputDir);
+      return sharp(`${inputDir}/${fileName}`)
+        .resize(w)
+        .rotate()
+        .toFile(`${outputDir}/${fileName}`);
+    }, Promise.resolve());
   }, Promise.resolve());
   await fs.ensureDir(convertedImagesMetaDir);
   return fs.writeFile(convertedImagesMetaPath, JSON.stringify(imagesMeta), "utf8");

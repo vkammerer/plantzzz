@@ -57,7 +57,7 @@ class Game extends Component {
     if (!nextPlant) return;
 
     const nextPlantImage = new Image();
-    nextPlantImage.src = `${process.env.PUBLIC_URL}/images/plants${nextPlant.image.dir}/${
+    nextPlantImage.src = `${process.env.PUBLIC_URL}/images/plants/750${nextPlant.image.dir}/${
       nextPlant.image.fileName
     }`;
   };

@@ -29,7 +29,7 @@ class Photo extends Component {
     const thisClass = classnames("Game_Photo_container", {
       Game_Photo_container_loaded: this.state.loaded,
     });
-    const currentPlantImagePath = `${process.env.PUBLIC_URL}/images/plants${
+    const currentPlantImagePath = `${process.env.PUBLIC_URL}/images/plants/750${
       this.props.currentPlant.image.dir
     }/${this.props.currentPlant.image.fileName}`;
     return (
