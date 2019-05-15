@@ -23,46 +23,6 @@ body {
   background-image: url("./images/bg.png");
 }
 
-header {
-  flex-basis: 4.5rem;
-  padding: 0 1rem;
-  color: white;
-  text-align: center;
-  text-shadow: 0 1px 3px rgba(0, 0, 0, 0.7);
-}
-
-header .appName {
-  line-height: 4rem;
-  font-size: 2rem;
-  height: 3rem;
-}
-
-header .appName span:first-child {
-  font-size: 0.91em;
-}
-
-header .appName span:last-child {
-  font-size: 0.86em;
-}
-
-header .appName span:nth-child(2),
-header .appName span:nth-child(5) {
-  font-size: 0.94em;
-}
-
-header .appName span:nth-child(3),
-header .appName span:nth-child(4) {
-  font-size: 0.98em;
-}
-
-header .appDomain {
-  font-size: 0.86rem;
-  line-height: 0.5rem;
-  height: 1.5rem;
-  font-weight: bold;
-  letter-spacing: 0.05rem;
-}
-
 .Game_message {
   color: white;
   text-align: center;

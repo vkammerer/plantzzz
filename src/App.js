@@ -6,6 +6,7 @@ import { getData } from "./utils/data";
 import Game from "./components/Game/Game";
 import Leaderboard from "./components/Leaderboard/Leaderboard";
 import Home from "./components/Home/Home";
+import Header from "./components/Header/Header";
 
 import "./App.css";
 
@@ -47,16 +48,7 @@ class App extends Component {
   render() {
     return (
       <div className="App">
-        <header>
-          <div className="appName">
-            <span>P</span>
-            <span>L</span>
-            <span>A</span>NT<span>Z</span>
-            <span>Z</span>
-            <span>Z</span>
-          </div>
-          <div className="appDomain">.web.app</div>
-        </header>
+        <Header />
         <Router>
           <Route
             exact

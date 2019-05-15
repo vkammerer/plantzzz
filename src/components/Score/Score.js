@@ -6,7 +6,7 @@ import { wait } from "../../utils/helpers";
 import "./Score.css";
 
 class Score extends Component {
-  state = { direction: null };
+  state = { direction: null, animationTime: null };
   componentDidMount() {
     if (0 < this.props.score) {
       this.kick("up");
@@ -15,10 +15,7 @@ class Score extends Component {
     }
   }
   kick = async direction => {
-    // TODO OMG remove this!
-    this.setState({ direction: null });
-    await wait(0);
-    this.setState({ direction });
+    this.setState({ direction, animationTime: Date.now() });
   };
   componentDidUpdate(prevProps) {
     if (prevProps.score < this.props.score) {
@@ -33,7 +30,7 @@ class Score extends Component {
       Game_score_down: this.state.direction === "down",
     });
     return (
-      <div className={thisClass}>
+      <div key={this.state.animationTime} className={thisClass}>
         <CountUp start={this.props.scoreStart} end={this.props.score} duration={1} delay={0}>
           {({ countUpRef }) => <div ref={countUpRef} />}
         </CountUp>
