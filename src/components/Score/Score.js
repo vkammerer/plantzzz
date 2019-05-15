@@ -1,29 +1,23 @@
 import React, { Component } from "react";
 import CountUp from "react-countup";
 import classnames from "classnames";
-import { wait } from "../../utils/helpers";
 
 import "./Score.css";
 
 class Score extends Component {
   state = { direction: null, animationTime: null };
   componentDidMount() {
-    if (0 < this.props.score) {
-      this.kick("up");
-    } else if (0 > this.props.score) {
-      this.kick("down");
-    }
+    this.handleScoreChange(this.props.score);
   }
-  kick = async direction => {
-    this.setState({ direction, animationTime: Date.now() });
-  };
   componentDidUpdate(prevProps) {
-    if (prevProps.score < this.props.score) {
-      this.kick("up");
-    } else if (prevProps.score > this.props.score) {
-      this.kick("down");
-    }
+    const delta = this.props.score - prevProps.score;
+    if (delta !== 0) this.handleScoreChange(delta);
   }
+  handleScoreChange = delta => {
+    const animationTime = Date.now();
+    if (0 < delta) this.setState({ direction: "up", animationTime });
+    else if (0 > delta) this.setState({ direction: "down", animationTime });
+  };
   render() {
     const thisClass = classnames("Game_score", {
       Game_score_up: this.state.direction === "up",
