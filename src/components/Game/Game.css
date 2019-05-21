@@ -1,6 +1,30 @@
 .Game {
-  flex-basis: auto;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  height: calc(var(--vh, 1vh) * 100);
+  width: 100vw;
+  max-width: calc(var(--vh) * 70);
+  margin: 0 auto;
+  overflow: hidden;
+  font-family: "Dekko";
+  background-image: url("../../images/bg.png");
+}
+
+.Plant {
   flex-grow: 1;
   display: flex;
   flex-direction: column;
+}
+
+.Plant_Options {
+  flex-basis: 13.5rem;
+}
+
+.Plant_Options > div {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  text-align: center;
+  padding: 1rem 1rem 0;
 }

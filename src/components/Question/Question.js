@@ -3,7 +3,7 @@ import "./Question.css";
 
 const Question = ({ questionType }) => {
   return (
-    <div className="Game_plant_question">
+    <div className="Question">
       <span>What's my</span>
       <span>{questionType === "botanicalName" ? "botanical name" : "common name"} ?</span>
     </div>

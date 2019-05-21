@@ -3,7 +3,7 @@ import "./Loader.css";
 
 const Loader = ({ error }) => {
   return (
-    <div className="Game_message">
+    <div className="Loader">
       {!error && "Loading Quizz"}
       {error &&
         `

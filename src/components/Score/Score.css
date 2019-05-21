@@ -1,4 +1,4 @@
-.Game_score {
+.Score {
   position: absolute;
   transform: scale(0.8);
   overflow: hidden;
@@ -19,21 +19,21 @@
   letter-spacing: 2px;
 }
 
-.Game_score > div {
+.Score > div {
   line-height: calc(2.5rem * 5 / 4);
   position: relative;
 }
 
-.Game_score_up,
-.Game_score_down {
+.Score_up,
+.Score_down {
   animation-duration: 300ms;
   animation-timing-function: cubic-bezier(0.1, 0.73, 0, 0.37);
 }
 
-.Game_score_up {
+.Score_up {
   animation-name: scoreAnimationUp;
 }
-.Game_score_down {
+.Score_down {
   animation-name: scoreAnimationDown;
 }
 
@@ -67,7 +67,7 @@
   }
 }
 
-.Game_score:before {
+.Score:before {
   content: "";
   height: 100%;
   width: 100%;
@@ -77,16 +77,16 @@
   right: 0px;
 }
 
-.Game_score_up:before {
+.Score_up:before {
   background: green;
 }
 
-.Game_score_down:before {
+.Score_down:before {
   background: red;
 }
 
-.Game_score_up:before,
-.Game_score_down:before {
+.Score_up:before,
+.Score_down:before {
   animation-name: scoreOpacityAnimation;
   animation-duration: 1200ms;
   animation-timing-function: linear;

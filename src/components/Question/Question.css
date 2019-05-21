@@ -1,4 +1,4 @@
-.Game_plant_question {
+.Question {
   color: white;
   line-height: 1.7rem;
   animation-name: questionAnimation;
@@ -30,10 +30,10 @@
   }
 }
 
-.Game_plant_question span:first-child {
+.Question span:first-child {
   font-size: 1.4rem;
 }
 
-.Game_plant_question span:last-child {
+.Question span:last-child {
   font-size: 1.7rem;
 }

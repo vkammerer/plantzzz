@@ -13,8 +13,8 @@ var dateOptions = {
   minute: "2-digit",
 };
 
-const Leaderboard = ({ scores, onQuizzStart }) => {
-  const augmentedScores = reverse(sortBy(scores, "score"))
+const Leaderboard = ({ scores }) => {
+  const augmentedScores = reverse(sortBy(scores, "value"))
     .slice(0, 10)
     .map(s => {
       const date = new Date(s.date);
@@ -33,11 +33,11 @@ const Leaderboard = ({ scores, onQuizzStart }) => {
           augmentedScores.map(s => (
             <div key={s.date} className="Leaderboard_score">
               <div className="Leaderboard_score_date">{s.day}</div>
-              <div className="Leaderboard_score_score">{s.score}</div>
+              <div className="Leaderboard_score_value">{s.value}</div>
             </div>
           ))}
       </div>
-      <Link to="/game">
+      <Link to="/quizz">
         <div className="button Leaderboard_button" role="button">
           Play new Quizz
         </div>

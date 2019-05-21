@@ -1,15 +1,12 @@
-import React, { Component } from "react";
+import React from "react";
 import "./Progress.css";
 
-class Progress extends Component {
-  state = {};
-  render() {
-    return (
-      <div className="Game_Progress" style={this.props.style}>
-        {this.props.currentPlantI + 1}/{this.props.plantsCount}
-      </div>
-    );
-  }
-}
+const Progress = props => {
+  return (
+    <div className="Progress" style={props.style}>
+      {props.currentPlantI + 1}/{props.plantsCount}
+    </div>
+  );
+};
 
 export default Progress;

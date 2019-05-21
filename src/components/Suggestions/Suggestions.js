@@ -3,38 +3,34 @@ import classnames from "classnames";
 
 import "./Suggestions.css";
 
-const Suggestion = ({ currentQuestion, suggestion, answer, selected }) => {
-  const thisClass = classnames("Game_plant_suggestion", {
-    Game_plant_suggestion_selected: selected,
+const Suggestion = ({ suggestion, handleUserAnswer, isSelected }) => {
+  const thisClass = classnames("Suggestion", {
+    Suggestion_selected: isSelected,
   });
   return (
-    <div
-      role="button"
-      className={thisClass}
-      onClick={() => answer(currentQuestion.type, suggestion)}
-    >
+    <div role="button" className={thisClass} onClick={() => handleUserAnswer(suggestion)}>
       {suggestion}
     </div>
   );
 };
 
-const Suggestions = ({ currentQuestion, answer }) => {
-  const hasReplied = !!currentQuestion.answer;
-  const thisClass = classnames("Game_plant_suggestions", {
-    Game_plant_suggestions_botanical: currentQuestion.type === "botanicalName",
-    Game_plant_suggestions_common: currentQuestion.type === "commonName",
-    Game_plant_suggestions_true: hasReplied && currentQuestion.answer.value > 1,
-    Game_plant_suggestions_false: hasReplied && currentQuestion.answer.value < 0,
+const Suggestions = ({ currentQuestion, handleUserAnswer }) => {
+  const thisClass = classnames("Suggestions", {
+    Suggestions_botanical: currentQuestion.type === "botanicalName",
+    Suggestions_common: currentQuestion.type === "commonName",
+    Suggestions_true:
+      currentQuestion.userAnswer && currentQuestion.userAnswer === currentQuestion.correctAnswer,
+    Suggestions_false:
+      currentQuestion.userAnswer && currentQuestion.userAnswer !== currentQuestion.correctAnswer,
   });
   return (
     <div className={thisClass}>
       {currentQuestion.suggestions.map(s => (
         <Suggestion
           key={s}
-          currentQuestion={currentQuestion}
           suggestion={s}
-          answer={answer}
-          selected={currentQuestion.answer && currentQuestion.answer.name === s}
+          handleUserAnswer={handleUserAnswer}
+          isSelected={currentQuestion.userAnswer === s}
         />
       ))}
     </div>

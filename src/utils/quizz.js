@@ -1,6 +1,6 @@
 import { without, sampleSize, shuffle, head, sortBy } from "lodash";
 
-export const getQuizz = ({ plants, count }) => {
+export const getQuizzPlants = ({ plants, count }) => {
   const imagedPlants = sortBy(plants, "botanicalName").filter(p => p.images.length > 0);
 
   const botanicalNames = imagedPlants.map(p => p.botanicalName);
@@ -11,16 +11,16 @@ export const getQuizz = ({ plants, count }) => {
       const plantCommonNames = sampleSize(without(commonNames, p.commonName), 3);
       const image = head(sampleSize(p.images, 1));
       return {
-        botanicalName: p.botanicalName,
-        commonName: p.commonName,
         image,
         questions: [
           {
             type: "botanicalName",
+            correctAnswer: p.botanicalName,
             suggestions: shuffle([...plantBotanicalNames, p.botanicalName]),
           },
           {
             type: "commonName",
+            correctAnswer: p.commonName,
             suggestions: shuffle([...plantCommonNames, p.commonName]),
           },
         ],

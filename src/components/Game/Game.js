@@ -1,140 +1,114 @@
-import React, { Component } from "react";
-import { clone, cloneDeep } from "lodash";
+import React, { useState, useEffect, useRef } from "react";
+import ReactGA from "react-ga";
+import { Route, Redirect, withRouter } from "react-router-dom";
 
-import { getQuizz } from "../../utils/quizz";
-import { wait, getScore } from "../../utils/helpers";
-
-import Suggestions from "../Suggestions/Suggestions";
-import Question from "../Question/Question";
-import Score from "../Score/Score";
-import Photo from "../Photo/Photo";
+import { getQuizzPlants } from "../../utils/quizz";
+import { getData } from "../../utils/data";
+import { preloadPhoto, getScoreValue } from "../../utils/helpers";
+import Header from "../Header/Header";
+import Home from "../Home/Home";
+import Quizz from "../Quizz/Quizz";
+import Leaderboard from "../Leaderboard/Leaderboard";
 
 import "./Game.css";
 
-const QUESTIONS_COUNT = 10;
-class Game extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      error: null,
-      quizz: getQuizz({
-        plants: this.props.plants,
-        count: QUESTIONS_COUNT,
-      }),
-      currentPlantI: 0,
-      currentQuestionI: 0,
-      isAskingQuestion: false,
-      isShowingAnswer: false,
-      isHidingSuggestions: true,
-      scoreStart: 0,
-      score: null,
-      quizzStartTime: null,
-    };
-  }
+const PLANTS_COUNT = 10;
 
-  startQuestion = async () => {
-    this.setState({
-      isAskingQuestion: true,
-    });
-    await wait(1650);
-    this.setState({
-      quizzStartTime: Date.now(),
-      isAskingQuestion: false,
-      isHidingSuggestions: false,
-    });
-  };
+const getLocalScores = () => {
+  const scoresStr = localStorage.getItem("plantzzzScores");
+  if (scoresStr)
+    return JSON.parse(scoresStr).map(s => ({
+      date: s.date,
+      /*
+        The data structure of a `score` changed but
+        the existing local client data is still read / supported.
+        TODO remove suport after some time.
+      */
+      value: typeof s.score !== "undefined" ? s.score : s.value,
+    }));
+  return [];
+};
 
-  onPhotoLoaded = () => {
-    this.preloadImage(this.state.currentPlantI);
+const setLocalScores = scores => {
+  localStorage.setItem("plantzzzScores", JSON.stringify(scores));
+};
+
+const Game = props => {
+  const plants = useRef([]);
+  const [error, setError] = useState(null);
+  const [quizzPlants, setQuizzPlants] = useState([]);
+  const [scores, setScores] = useState(getLocalScores());
+
+  useEffect(() => {
     (async () => {
-      await wait(200);
-      this.startQuestion();
+      try {
+        plants.current = await getData();
+        setQuizzPlants(
+          getQuizzPlants({
+            plants: plants.current,
+            count: PLANTS_COUNT,
+          }),
+        );
+      } catch (error) {
+        setError(error);
+        throw error;
+      }
     })();
-  };
+  }, []);
 
-  preloadImage = plantI => {
-    const nextPlant = this.state.quizz[plantI + 1];
-    if (!nextPlant) return;
+  useEffect(() => {
+    if (!quizzPlants.length) return;
+    preloadPhoto(quizzPlants[0]);
+  }, [quizzPlants]);
 
-    const nextPlantImage = new Image();
-    nextPlantImage.src = `${process.env.PUBLIC_URL}/images/plants/750${nextPlant.image.dir}/${
-      nextPlant.image.fileName
-    }`;
-  };
-
-  answer = async (type, name) => {
-    if (this.state.isShowingAnswer) return;
-    const timeToReply = Date.now() - this.state.quizzStartTime;
-    const thisQuizz = clone(this.state.quizz);
-    const currentPlant = cloneDeep(this.state.quizz[this.state.currentPlantI]);
-    const currentQuestion = currentPlant.questions[this.state.currentQuestionI];
-    const value =
-      name === currentPlant[type] ? Math.max(Math.floor((10000 - timeToReply) / 200), 10) : -5;
-    currentQuestion.answer = {
-      name,
-      value,
+  const onQuizzEnd = quizz => {
+    const score = {
+      date: Date.now(),
+      value: getScoreValue(quizz),
     };
-    thisQuizz[this.state.currentPlantI] = currentPlant;
-    this.setState({
-      isShowingAnswer: true,
-      quizz: thisQuizz,
-      scoreStart: this.state.score || 0,
-      score: getScore(thisQuizz),
+    ReactGA.event({
+      category: "Quizz",
+      action: "Score",
+      value: score.value,
     });
-    const changePlant = this.state.currentQuestionI === 1;
-    if (changePlant) await wait(1100);
-    else await wait(1000);
-    if (changePlant && QUESTIONS_COUNT === this.state.currentPlantI + 1) {
-      return this.props.onQuizzEnd(
-        {
-          date: Date.now(),
-          score: this.state.score,
-        },
-        () => {
-          this.props.history.push("/leaderboard");
-        },
-      );
-    }
-    this.setState({
-      isShowingAnswer: false,
-      isHidingSuggestions: true,
-      currentPlantI: changePlant ? this.state.currentPlantI + 1 : this.state.currentPlantI,
-      currentQuestionI: changePlant ? 0 : 1,
-    });
-    if (!changePlant) this.startQuestion();
+    const newScores = [...scores, score];
+    setLocalScores(newScores);
+    setScores(newScores);
+    props.history.push("/leaderboard");
+    setQuizzPlants(
+      getQuizzPlants({
+        plants: plants.current,
+        count: PLANTS_COUNT,
+      }),
+    );
   };
 
-  render() {
-    const currentPlant = this.state.quizz[this.state.currentPlantI];
-    const currentQuestion = !!currentPlant
-      ? currentPlant.questions[this.state.currentQuestionI]
-      : null;
+  return (
+    <div className="Game">
+      <Header />
+      <Route
+        exact
+        path="/"
+        render={routeProps => <Home {...routeProps} plants={quizzPlants} error={error} />}
+      />
+      <Route
+        exact
+        path="/quizz"
+        render={routeProps =>
+          quizzPlants.length > 0 ? (
+            <Quizz {...routeProps} plants={quizzPlants} onQuizzEnd={onQuizzEnd} />
+          ) : (
+            <Redirect to={{ pathname: "/" }} />
+          )
+        }
+      />
+      <Route
+        exact
+        path="/leaderboard"
+        render={routeProps => <Leaderboard {...routeProps} scores={scores} />}
+      />
+    </div>
+  );
+};
 
-    return (
-      <div className="Game">
-        {typeof this.state.score === "number" && (
-          <Score scoreStart={this.state.scoreStart} score={this.state.score} />
-        )}
-        {!!currentPlant && (
-          <div className="Game_plant">
-            <Photo
-              currentPlantI={this.state.currentPlantI}
-              currentPlant={currentPlant}
-              onPhotoLoaded={this.onPhotoLoaded}
-            />
-            <div className="Game_plant_options">
-              {this.state.isAskingQuestion && !!currentQuestion && (
-                <Question questionType={currentQuestion.type} />
-              )}
-              {!this.state.isAskingQuestion && !this.state.isHidingSuggestions && (
-                <Suggestions currentQuestion={currentQuestion} answer={this.answer} />
-              )}
-            </div>
-          </div>
-        )}
-      </div>
-    );
-  }
-}
-
-export default Game;
+export default withRouter(Game);

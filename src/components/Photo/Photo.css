@@ -1,9 +1,9 @@
-.Game_Photo {
+.Photo {
   position: relative;
   flex-grow: 1;
 }
 
-.Game_Photo_container {
+.Photo_container {
   position: absolute;
   top: 0;
   bottom: 0;
@@ -15,7 +15,7 @@
   opacity: 0;
 }
 
-.Game_Photo_container.Game_Photo_container_loaded {
+.Photo_container.Photo_container_loaded {
   transform: scale(0);
   opacity: 1;
   animation-name: imageAnimation;
@@ -33,7 +33,7 @@
   }
 }
 
-.Game_Photo img {
+.Photo img {
   display: block;
   margin: 0 auto;
   max-height: 100%;

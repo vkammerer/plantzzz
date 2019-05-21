@@ -1,42 +1,41 @@
 header {
   flex-basis: 4.5rem;
   padding: 0 1rem;
-  color: white;
   text-align: center;
   text-shadow: 0 1px 3px rgba(0, 0, 0, 0.7);
 }
 
 .Header_logo {
   width: 10rem;
-  border-radius: 50%;
   margin: 0 auto;
+  color: white;
 }
 
-header .appName {
+.Header_name {
   line-height: 4rem;
   font-size: 2rem;
   height: 3rem;
 }
 
-header .appName span:first-child {
+.Header_name span:first-child {
   font-size: 0.91em;
 }
 
-header .appName span:last-child {
+.Header_name span:last-child {
   font-size: 0.86em;
 }
 
-header .appName span:nth-child(2),
-header .appName span:nth-child(5) {
+.Header_name span:nth-child(2),
+.Header_name span:nth-child(5) {
   font-size: 0.94em;
 }
 
-header .appName span:nth-child(3),
-header .appName span:nth-child(4) {
+.Header_name span:nth-child(3),
+.Header_name span:nth-child(4) {
   font-size: 0.98em;
 }
 
-header .appDomain {
+.Header_domain {
   font-size: 0.86rem;
   line-height: 0.5rem;
   height: 1.5rem;

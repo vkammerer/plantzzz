@@ -10,43 +10,6 @@ body {
   background: black;
 }
 
-.App {
-  position: relative;
-  display: flex;
-  flex-direction: column;
-  height: calc(var(--vh, 1vh) * 100);
-  width: 100vw;
-  max-width: calc(var(--vh) * 70);
-  margin: 0 auto;
-  overflow: hidden;
-  font-family: "Dekko";
-  background-image: url("./images/bg.png");
-}
-
-.Game_message {
-  color: white;
-  text-align: center;
-  padding-top: 2rem;
-}
-
-.Game_plant {
-  flex-grow: 1;
-  display: flex;
-  flex-direction: column;
-}
-
-.Game_plant_options {
-  flex-basis: 13.5rem;
-}
-
-.Game_plant_options > div {
-  height: 100%;
-  display: flex;
-  flex-direction: column;
-  text-align: center;
-  padding: 1rem 1rem 0;
-}
-
 .button {
   text-align: center;
   line-height: 2.15rem;

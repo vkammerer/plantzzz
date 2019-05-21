@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 
 import "./Home.css";
 
-const Home = ({ plants, error, onQuizzStart, handleViewLeaderboard }) => {
+const Home = ({ plants, error }) => {
   return (
     <div className="Home">
       <div className="Home_intro">
@@ -16,7 +16,7 @@ const Home = ({ plants, error, onQuizzStart, handleViewLeaderboard }) => {
       {(plants.length === 0 || error) && <Loader error={error} />}
       {plants.length > 0 && !error && (
         <>
-          <Link to="/game">
+          <Link to="/quizz">
             <div className="button Home_button" role="button">
               Play Quizz
             </div>
