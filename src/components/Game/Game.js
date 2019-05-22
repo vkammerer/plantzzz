@@ -91,6 +91,10 @@ const Game = props => {
   };
 
   const onTrainingEnd = () => {
+    ReactGA.event({
+      category: "Training",
+      action: "End",
+    });
     props.history.push("/");
     setTrainingPlants(
       getQuizzPlants({
