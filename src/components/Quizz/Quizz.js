@@ -75,34 +75,33 @@ const Quizz = props => {
     clonedPlant.questions[_questionI].userAnswer = name;
     clonedPlant.questions[_questionI].timeToReply = timeToReply;
 
-    const clonedQuizz = clone(_plants);
-    clonedQuizz[_plantI] = clonedPlant;
-    setPlants(clonedQuizz);
+    const clonedPlants = clone(_plants);
+    clonedPlants[_plantI] = clonedPlant;
+    setPlants(clonedPlants);
   };
 
-  const currentPlant = _plants[_plantI];
-  const currentQuestion = !!currentPlant ? currentPlant.questions[_questionI] : null;
+  const plant = _plants[_plantI];
+  const question = plant.questions[_questionI];
+  const isBeforeFirstAnswer = _plantI === 0 && _questionI === 0 && !question.userAnswer;
   const scoreValue = getScoreValue(_plants);
 
   return (
     <div className="Quizz">
-      {typeof scoreValue === "number" && <Score scoreValue={scoreValue} />}
-      {!!currentPlant && (
-        <div className="Plant">
-          <Photo
-            currentPlantI={_plantI}
-            currentPlant={currentPlant}
-            onPhotoLoaded={handlePhotoLoaded}
-            plantsCount={_plants.length}
-          />
-          <div className="Plant_Options">
-            {_optionsView === "question" && <Question questionType={currentQuestion.type} />}
-            {_optionsView === "suggestions" && (
-              <Suggestions currentQuestion={currentQuestion} handleUserAnswer={handleUserAnswer} />
-            )}
-          </div>
+      {!isBeforeFirstAnswer && props.trackScore && <Score scoreValue={scoreValue} />}
+      <div className="Plant">
+        <Photo
+          plantI={_plantI}
+          plant={plant}
+          handlePhotoLoaded={handlePhotoLoaded}
+          plantsCount={_plants.length}
+        />
+        <div className="Plant_Options">
+          {_optionsView === "question" && <Question questionType={question.type} />}
+          {_optionsView === "suggestions" && (
+            <Suggestions question={question} handleUserAnswer={handleUserAnswer} />
+          )}
         </div>
-      )}
+      </div>
     </div>
   );
 };

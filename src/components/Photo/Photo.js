@@ -21,29 +21,20 @@ const Photo = props => {
       right: `${photoRect.right - imgRect.right + 2}px`,
     });
     await wait(550);
-    props.onPhotoLoaded();
+    props.handlePhotoLoaded();
   };
 
-  useEffect(() => setIsLoaded(false), [props.currentPlant.image.fileName]);
+  useEffect(() => setIsLoaded(false), [props.plant.image.fileName]);
 
   const thisClass = classnames("Photo_container", {
     Photo_container_loaded: isLoaded,
   });
-  const currentPlantImagePath = getPhotoPath(props.currentPlant.image);
+  const plantImagePath = getPhotoPath(props.plant.image);
   return (
     <div className="Photo">
-      <div ref={photoEl} key={props.currentPlant.image.file} className={thisClass}>
-        <img
-          ref={imgEl}
-          src={currentPlantImagePath}
-          onLoad={onLoad}
-          alt={props.currentPlant.botanicalName}
-        />
-        <Progress
-          style={progressStyle}
-          currentPlantI={props.currentPlantI}
-          plantsCount={props.plantsCount}
-        />
+      <div ref={photoEl} key={props.plant.image.file} className={thisClass}>
+        <img ref={imgEl} src={plantImagePath} onLoad={onLoad} alt={props.plant.botanicalName} />
+        <Progress style={progressStyle} plantI={props.plantI} plantsCount={props.plantsCount} />
       </div>
     </div>
   );

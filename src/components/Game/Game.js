@@ -37,12 +37,19 @@ const Game = props => {
   const plants = useRef([]);
   const [error, setError] = useState(null);
   const [quizzPlants, setQuizzPlants] = useState([]);
+  const [trainingPlants, setTrainingPlants] = useState([]);
   const [scores, setScores] = useState(getLocalScores());
 
   useEffect(() => {
     (async () => {
       try {
         plants.current = await getData();
+        setTrainingPlants(
+          getQuizzPlants({
+            plants: plants.current,
+            count: 50,
+          }),
+        );
         setQuizzPlants(
           getQuizzPlants({
             plants: plants.current,
@@ -83,6 +90,16 @@ const Game = props => {
     );
   };
 
+  const onTrainingEnd = () => {
+    props.history.push("/");
+    setTrainingPlants(
+      getQuizzPlants({
+        plants: plants.current,
+        count: 50,
+      }),
+    );
+  };
+
   return (
     <div className="Game">
       <Header />
@@ -96,7 +113,18 @@ const Game = props => {
         path="/quizz"
         render={routeProps =>
           quizzPlants.length > 0 ? (
-            <Quizz {...routeProps} plants={quizzPlants} onQuizzEnd={onQuizzEnd} />
+            <Quizz {...routeProps} plants={quizzPlants} onQuizzEnd={onQuizzEnd} trackScore />
+          ) : (
+            <Redirect to={{ pathname: "/" }} />
+          )
+        }
+      />
+      <Route
+        exact
+        path="/training"
+        render={routeProps =>
+          trainingPlants.length > 0 ? (
+            <Quizz {...routeProps} plants={trainingPlants} onQuizzEnd={onTrainingEnd} />
           ) : (
             <Redirect to={{ pathname: "/" }} />
           )

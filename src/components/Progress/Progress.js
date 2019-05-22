@@ -4,7 +4,7 @@ import "./Progress.css";
 const Progress = props => {
   return (
     <div className="Progress" style={props.style}>
-      {props.currentPlantI + 1}/{props.plantsCount}
+      {props.plantI + 1}/{props.plantsCount}
     </div>
   );
 };

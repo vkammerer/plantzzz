@@ -14,23 +14,21 @@ const Suggestion = ({ suggestion, handleUserAnswer, isSelected }) => {
   );
 };
 
-const Suggestions = ({ currentQuestion, handleUserAnswer }) => {
+const Suggestions = ({ question, handleUserAnswer }) => {
   const thisClass = classnames("Suggestions", {
-    Suggestions_botanical: currentQuestion.type === "botanicalName",
-    Suggestions_common: currentQuestion.type === "commonName",
-    Suggestions_true:
-      currentQuestion.userAnswer && currentQuestion.userAnswer === currentQuestion.correctAnswer,
-    Suggestions_false:
-      currentQuestion.userAnswer && currentQuestion.userAnswer !== currentQuestion.correctAnswer,
+    Suggestions_botanical: question.type === "botanicalName",
+    Suggestions_common: question.type === "commonName",
+    Suggestions_true: question.userAnswer && question.userAnswer === question.correctAnswer,
+    Suggestions_false: question.userAnswer && question.userAnswer !== question.correctAnswer,
   });
   return (
     <div className={thisClass}>
-      {currentQuestion.suggestions.map(s => (
+      {question.suggestions.map(s => (
         <Suggestion
           key={s}
           suggestion={s}
           handleUserAnswer={handleUserAnswer}
-          isSelected={currentQuestion.userAnswer === s}
+          isSelected={question.userAnswer === s}
         />
       ))}
     </div>

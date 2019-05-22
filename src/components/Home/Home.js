@@ -21,6 +21,11 @@ const Home = ({ plants, error }) => {
               Play Quizz
             </div>
           </Link>
+          <Link to="/training">
+            <div className="button Home_button" role="button">
+              Train with all plants
+            </div>
+          </Link>
           <Link to="/leaderboard">
             <div className="button Home_button" role="button">
               View Scores
