@@ -68,6 +68,11 @@ const Game = props => {
     preloadPhoto(quizzPlants[0]);
   }, [quizzPlants]);
 
+  useEffect(() => {
+    if (!trainingPlants.length) return;
+    preloadPhoto(trainingPlants[0]);
+  }, [trainingPlants]);
+
   const onQuizzEnd = quizz => {
     const score = {
       date: Date.now(),
