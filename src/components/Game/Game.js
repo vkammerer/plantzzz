@@ -95,7 +95,7 @@ const Game = props => {
     ReactGA.event({
       category: "Training",
       action: "Score",
-      value: (scoreValue * plants.current.length) / PLANTS_COUNT,
+      value: (scoreValue * PLANTS_COUNT) / plants.current.length,
     });
     props.history.push("/");
     setTrainingPlants(
