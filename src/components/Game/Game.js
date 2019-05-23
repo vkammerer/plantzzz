@@ -47,7 +47,7 @@ const Game = props => {
         setTrainingPlants(
           getQuizzPlants({
             plants: plants.current,
-            count: 50,
+            count: plants.current.length,
           }),
         );
         setQuizzPlants(
@@ -90,16 +90,18 @@ const Game = props => {
     );
   };
 
-  const onTrainingEnd = () => {
+  const onTrainingEnd = quizz => {
+    const scoreValue = getScoreValue(quizz);
     ReactGA.event({
       category: "Training",
-      action: "End",
+      action: "Score",
+      value: (scoreValue * plants.current.length) / PLANTS_COUNT,
     });
     props.history.push("/");
     setTrainingPlants(
       getQuizzPlants({
         plants: plants.current,
-        count: 50,
+        count: plants.current.length,
       }),
     );
   };
