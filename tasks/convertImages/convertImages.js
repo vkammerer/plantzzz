@@ -5,7 +5,7 @@ import fs from "fs-extra";
 import sharp from "sharp";
 import { includes } from "lodash";
 
-const googleDriveRelativePath = "Projects/plantzzz/plants";
+const googleDriveRelativePath = "Friends/Nada/plantzzz/plants_lasc206_sem2_part1";
 const inputFolderPath = path.resolve(homedir(), "Google Drive", googleDriveRelativePath);
 const outputFolderPath = path.resolve(__dirname, "../../public/images/plants");
 const convertedImagesMetaDir = path.resolve(__dirname, "data");
@@ -14,7 +14,8 @@ const convertedImagesMetaPath = path.resolve(convertedImagesMetaDir, "convertedI
 const supportedformats = ["jpg", "jpeg", "png", "webp", "gif", "svg", "tiff"];
 
 const isSupportedFile = file => {
-  const extension = file.split(".")[1];
+  const splitFile = file.split(".");
+  const extension = splitFile[splitFile.length - 1];
   return !!extension && includes(supportedformats, extension.toLowerCase());
 };
 
@@ -45,7 +46,8 @@ const getImagesPaths = dir => {
       return sharp(`${inputDir}/${fileName}`)
         .resize(w)
         .rotate()
-        .toFile(`${outputDir}/${fileName}`);
+        .toFile(`${outputDir}/${fileName}`)
+        .catch(err => console.error(err, `${inputDir}/${fileName}`));
     }, Promise.resolve());
   }, Promise.resolve());
   await fs.ensureDir(convertedImagesMetaDir);
