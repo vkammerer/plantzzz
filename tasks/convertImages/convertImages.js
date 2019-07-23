@@ -5,7 +5,7 @@ import fs from "fs-extra";
 import sharp from "sharp";
 import { includes } from "lodash";
 
-const googleDriveRelativePath = "Friends/Nada/plantzzz/plants_lasc206_sem2_part1";
+const googleDriveRelativePath = "Projects/plantzzz/plants/plants_lasc206_sem2_part1";
 const inputFolderPath = path.resolve(homedir(), "Google Drive", googleDriveRelativePath);
 const outputFolderPath = path.resolve(__dirname, "../../public/images/plants");
 const convertedImagesMetaDir = path.resolve(__dirname, "data");
