@@ -8,9 +8,9 @@ import Question from "../Question/Question";
 import Score from "../Score/Score";
 import Photo from "../Photo/Photo";
 
-import "./Quizz.css";
+import "./Quiz.css";
 
-const Quizz = props => {
+const Quiz = props => {
   const _isMounted = useRef(false);
   const _suggestionsShowTime = useRef();
   const [_plants, setPlants] = useState(props.plants);
@@ -35,7 +35,7 @@ const Quizz = props => {
     if (_questionI > 0) showQuestion();
   };
 
-  const handleQuizzUpdate = () => {
+  const handleQuizUpdate = () => {
     if (!_isMounted.current) return;
 
     (async () => {
@@ -46,7 +46,7 @@ const Quizz = props => {
       setOptionsView("");
 
       if (isLastPlant && isPlantFinished) {
-        props.onQuizzEnd(_plants);
+        props.onQuizEnd(_plants);
         return;
       }
       if (isPlantFinished) {
@@ -64,7 +64,7 @@ const Quizz = props => {
   };
 
   useEffect(handleNewQuestion, [_questionI]);
-  useEffect(handleQuizzUpdate, [_plants]);
+  useEffect(handleQuizUpdate, [_plants]);
   useEffect(handleMount, []);
 
   const handleUserAnswer = async name => {
@@ -86,7 +86,7 @@ const Quizz = props => {
   const scoreValue = getScoreValue(_plants);
 
   return (
-    <div className="Quizz">
+    <div className="Quiz">
       {!isBeforeFirstAnswer && props.trackScore && <Score scoreValue={scoreValue} />}
       <div className="Plant">
         <Photo
@@ -106,4 +106,4 @@ const Quizz = props => {
   );
 };
 
-export default Quizz;
+export default Quiz;

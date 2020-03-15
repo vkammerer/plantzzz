@@ -28,7 +28,7 @@ const Leaderboard = ({ scores }) => {
     <div className="Leaderboard">
       <div className="Leaderboard_header">Scores - Top 10</div>
       <div className="Leaderboard_content">
-        {augmentedScores.length === 0 && "No quizz completed yet"}
+        {augmentedScores.length === 0 && "No quiz completed yet"}
         {augmentedScores.length > 0 &&
           augmentedScores.map(s => (
             <div key={s.date} className="Leaderboard_score">
@@ -37,9 +37,9 @@ const Leaderboard = ({ scores }) => {
             </div>
           ))}
       </div>
-      <Link to="/quizz">
+      <Link to="/quiz">
         <div className="button Leaderboard_button" role="button">
-          Play new Quizz
+          Play new Quiz
         </div>
       </Link>
     </div>

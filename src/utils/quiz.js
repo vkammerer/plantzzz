@@ -1,6 +1,6 @@
 import { without, sampleSize, shuffle, head, sortBy } from "lodash";
 
-export const getQuizzPlants = ({ plants, count }) => {
+export const getQuizPlants = ({ plants, count }) => {
   const imagedPlants = sortBy(plants, "botanicalName").filter(p => p.images.length > 0);
 
   const botanicalNames = imagedPlants.map(p => p.botanicalName);

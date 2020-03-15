@@ -16,9 +16,9 @@ const Home = ({ plants, error }) => {
       {(plants.length === 0 || error) && <Loader error={error} />}
       {plants.length > 0 && !error && (
         <>
-          <Link to="/quizz">
+          <Link to="/quiz">
             <div className="button Home_button" role="button">
-              Play Quizz
+              Play Quiz
             </div>
           </Link>
           <Link to="/training">

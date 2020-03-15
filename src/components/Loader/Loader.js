@@ -4,10 +4,10 @@ import "./Loader.css";
 const Loader = ({ error }) => {
   return (
     <div className="Loader">
-      {!error && "Loading Quizz"}
+      {!error && "Loading Quiz"}
       {error &&
         `
-Error loading quizz data:
+Error loading quiz data:
 ${JSON.stringify(error)}
 `}
     </div>

@@ -2,8 +2,8 @@ import { flatten } from "lodash";
 
 export const wait = time => new Promise(resolve => setTimeout(resolve, time));
 
-export const getScoreValue = quizz =>
-  flatten(quizz.map(p => p.questions)).reduce((acc, q) => acc + getAnswerValue(q), 0);
+export const getScoreValue = quiz =>
+  flatten(quiz.map(p => p.questions)).reduce((acc, q) => acc + getAnswerValue(q), 0);
 
 export const getPhotoPath = image =>
   `${process.env.PUBLIC_URL}/images/plants/750${image.dir}/${image.fileName}`;

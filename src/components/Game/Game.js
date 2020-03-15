@@ -2,12 +2,12 @@ import React, { useState, useEffect, useRef } from "react";
 import ReactGA from "react-ga";
 import { Route, Redirect, withRouter } from "react-router-dom";
 
-import { getQuizzPlants } from "../../utils/quizz";
+import { getQuizPlants } from "../../utils/quiz";
 import { getData } from "../../utils/data";
 import { preloadPhoto, getScoreValue } from "../../utils/helpers";
 import Header from "../Header/Header";
 import Home from "../Home/Home";
-import Quizz from "../Quizz/Quizz";
+import Quiz from "../Quiz/Quiz";
 import Leaderboard from "../Leaderboard/Leaderboard";
 
 import "./Game.css";
@@ -36,7 +36,7 @@ const setLocalScores = scores => {
 const Game = props => {
   const plants = useRef([]);
   const [error, setError] = useState(null);
-  const [quizzPlants, setQuizzPlants] = useState([]);
+  const [quizPlants, setQuizPlants] = useState([]);
   const [trainingPlants, setTrainingPlants] = useState([]);
   const [scores, setScores] = useState(getLocalScores());
 
@@ -45,13 +45,13 @@ const Game = props => {
       try {
         plants.current = await getData();
         setTrainingPlants(
-          getQuizzPlants({
+          getQuizPlants({
             plants: plants.current,
             count: plants.current.length,
           }),
         );
-        setQuizzPlants(
-          getQuizzPlants({
+        setQuizPlants(
+          getQuizPlants({
             plants: plants.current,
             count: PLANTS_COUNT,
           }),
@@ -64,22 +64,22 @@ const Game = props => {
   }, []);
 
   useEffect(() => {
-    if (!quizzPlants.length) return;
-    preloadPhoto(quizzPlants[0]);
-  }, [quizzPlants]);
+    if (!quizPlants.length) return;
+    preloadPhoto(quizPlants[0]);
+  }, [quizPlants]);
 
   useEffect(() => {
     if (!trainingPlants.length) return;
     preloadPhoto(trainingPlants[0]);
   }, [trainingPlants]);
 
-  const onQuizzEnd = quizz => {
+  const onQuizEnd = quiz => {
     const score = {
       date: Date.now(),
-      value: getScoreValue(quizz),
+      value: getScoreValue(quiz),
     };
     ReactGA.event({
-      category: "Quizz",
+      category: "Quiz",
       action: "Score",
       value: score.value,
     });
@@ -87,16 +87,16 @@ const Game = props => {
     setLocalScores(newScores);
     setScores(newScores);
     props.history.push("/leaderboard");
-    setQuizzPlants(
-      getQuizzPlants({
+    setQuizPlants(
+      getQuizPlants({
         plants: plants.current,
         count: PLANTS_COUNT,
       }),
     );
   };
 
-  const onTrainingEnd = quizz => {
-    const scoreValue = getScoreValue(quizz);
+  const onTrainingEnd = quiz => {
+    const scoreValue = getScoreValue(quiz);
     ReactGA.event({
       category: "Training",
       action: "Score",
@@ -104,7 +104,7 @@ const Game = props => {
     });
     props.history.push("/");
     setTrainingPlants(
-      getQuizzPlants({
+      getQuizPlants({
         plants: plants.current,
         count: plants.current.length,
       }),
@@ -117,14 +117,14 @@ const Game = props => {
       <Route
         exact
         path="/"
-        render={routeProps => <Home {...routeProps} plants={quizzPlants} error={error} />}
+        render={routeProps => <Home {...routeProps} plants={quizPlants} error={error} />}
       />
       <Route
         exact
-        path="/quizz"
+        path="/quiz"
         render={routeProps =>
-          quizzPlants.length > 0 ? (
-            <Quizz {...routeProps} plants={quizzPlants} onQuizzEnd={onQuizzEnd} trackScore />
+          quizPlants.length > 0 ? (
+            <Quiz {...routeProps} plants={quizPlants} onQuizEnd={onQuizEnd} trackScore />
           ) : (
             <Redirect to={{ pathname: "/" }} />
           )
@@ -135,7 +135,7 @@ const Game = props => {
         path="/training"
         render={routeProps =>
           trainingPlants.length > 0 ? (
-            <Quizz {...routeProps} plants={trainingPlants} onQuizzEnd={onTrainingEnd} />
+            <Quiz {...routeProps} plants={trainingPlants} onQuizEnd={onTrainingEnd} />
           ) : (
             <Redirect to={{ pathname: "/" }} />
           )
