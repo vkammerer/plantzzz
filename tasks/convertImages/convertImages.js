@@ -5,7 +5,7 @@ import fs from "fs-extra";
 import sharp from "sharp";
 import { includes } from "lodash";
 
-const googleDriveRelativePath = "projects/plantzzz/plants/plants_lasc206_sem2_part2";
+const googleDriveRelativePath = "projects/plantzzz/plants/plants_lasc211_sem1_part1";
 const inputFolderPath = path.resolve(
   homedir(),
   "Google Drive (scholarshacks@gmail.com)",
