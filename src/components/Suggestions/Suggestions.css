@@ -64,13 +64,30 @@
   border: 2px solid #a6b0da;
 }
 
-.Suggestion_selected {
+.Suggestion_selected,
+.Suggestion_correct {
   transition: 0s;
 }
 
 .Suggestions_true .Suggestion_selected {
   background: green;
   border-color: #b0e6b0;
+}
+
+.Suggestions_false .Suggestion_correct {
+  animation-duration: 600ms;
+  animation-timing-function: cubic-bezier(0.54, 0.01, 0.81, 0.6);
+  animation-fill-mode: forwards;
+  animation-name: suggestionAnimationFalseCorrect;
+}
+
+@keyframes suggestionAnimationFalseCorrect {
+  0% {
+    background: green;
+    border-color: #b0e6b0;
+  }
+  100% {
+  }
 }
 
 .Suggestions_false .Suggestion_selected {
