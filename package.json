@@ -15,7 +15,8 @@
   },
   "scripts": {
     "start": "react-scripts start",
-    "build": "npm run tasksBuild && react-scripts build && rm -rf docs && mv build docs",
+    "buildFront": "react-scripts build && rm -rf docs && mv build docs",
+    "build": "npm run tasksBuild && npm run buildFront",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
     "tasksBuild": "npm run build --prefix tasks",
