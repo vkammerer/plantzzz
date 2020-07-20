@@ -5,9 +5,10 @@ import Progress from "../Progress/Progress";
 import { wait, getPhotoPath } from "../../utils/helpers";
 import "./Photo.css";
 
-const Photo = props => {
+const Photo = (props) => {
   const photoEl = useRef(null);
   const imgEl = useRef(null);
+  const currentPlantImageFileName = useRef(null);
 
   const [isLoaded, setIsLoaded] = useState(false);
   const [progressStyle, setProgressStyle] = useState({});
@@ -24,7 +25,10 @@ const Photo = props => {
     props.handlePhotoLoaded();
   };
 
-  useEffect(() => setIsLoaded(false), [props.plant.image.fileName]);
+  useEffect(() => {
+    if (currentPlantImageFileName.current !== null) setIsLoaded(false);
+    currentPlantImageFileName.current = props.plant.image.fileName;
+  }, [currentPlantImageFileName, props.plant.image.fileName]);
 
   const thisClass = classnames("Photo_container", {
     Photo_container_loaded: isLoaded,
