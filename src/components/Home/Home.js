@@ -13,7 +13,7 @@ const Home = ({ plants, error }) => {
         </p>
         <p>The faster you answer, the more points you get!</p>
         <p className="Home_intro_currentSet">
-          Current set:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span>LASC 211 - walks 3 & 4</span>
+          Current set:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span>LASC 211 - test 1</span>
         </p>
       </div>
       {(plants.length === 0 || error) && <Loader error={error} />}

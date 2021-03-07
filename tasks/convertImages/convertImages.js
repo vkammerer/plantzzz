@@ -3,13 +3,27 @@ import { homedir } from "os";
 
 import fs from "fs-extra";
 import sharp from "sharp";
-import { includes } from "lodash";
+import { includes, intersection, flatten } from "lodash";
 
-const googleDriveRelativePath = "projects/plantzzz/plants/plants_lasc211_sem1_part2";
-const inputFolderPath = path.resolve(
+/*
+  Test
+*/
+const testJsonName = "LASC211 - Test 1.json";
+const testsGoogleDriveRelativePath = `projects/plantzzz/tests/${testJsonName}`;
+const testsInputFolderPath = path.resolve(
   homedir(),
   "Google Drive (scholarshacks@gmail.com)",
-  googleDriveRelativePath
+  testsGoogleDriveRelativePath
+);
+
+/*
+  Images
+*/
+const plantsGoogleDriveRelativePath = "projects/plantzzz/plants";
+const plantsInputFolderPath = path.resolve(
+  homedir(),
+  "Google Drive (scholarshacks@gmail.com)",
+  plantsGoogleDriveRelativePath
 );
 const outputFolderPath = path.resolve(__dirname, "../../public/images/plants");
 const convertedImagesMetaDir = path.resolve(__dirname, "data");
@@ -30,7 +44,7 @@ const getImagesPaths = (dir) => {
     if (fs.lstatSync(`${thisPath}`).isDirectory()) {
       acc.push(...getImagesPaths(`${thisPath}`));
     } else if (isSupportedFile(fileName)) {
-      const relativeDir = dir.replace(inputFolderPath, "");
+      const relativeDir = dir.replace(plantsInputFolderPath, "");
       acc.push({ dir: relativeDir, fileName });
     }
     return acc;
@@ -38,10 +52,24 @@ const getImagesPaths = (dir) => {
 };
 
 (async () => {
-  const imagesMeta = getImagesPaths(inputFolderPath);
+  const testPlants = JSON.parse(fs.readFileSync(testsInputFolderPath)).plants;
+  const files = fs.readdirSync(plantsInputFolderPath);
+  const testPlantsDirectories = intersection(files, testPlants);
+
+  if (testPlants.length !== testPlantsDirectories.length) {
+    console.log(`
+Mismatch: 
+testPlants.length: ${testPlants.length}
+testPlantsDirectories.length: ${testPlantsDirectories.length}
+`);
+    process.exit();
+  }
+  const imagesMeta = flatten(
+    testPlantsDirectories.map((d) => getImagesPaths(`${plantsInputFolderPath}/${d}`))
+  );
   await imagesMeta.reduce(async (p, { dir, fileName }) => {
     await p;
-    const inputDir = `${inputFolderPath}${dir}`;
+    const inputDir = `${plantsInputFolderPath}${dir}`;
     const supportedWidths = [750];
     await supportedWidths.reduce(async (p, w) => {
       const outputDir = `${outputFolderPath}/${w.toString()}${dir}`;

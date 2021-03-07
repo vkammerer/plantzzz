@@ -1,3 +1,5 @@
+import { debounce } from "lodash";
+
 const getRem = (vw, vh) => {
   if (vw / vh > 0.7) return vh * 3.8 * 0.7;
   if (vw / vh < 0.6) return vw * 4.5;
@@ -14,6 +16,6 @@ export const initCorrectVh = () => {
   };
 
   // We listen to the resize event
-  window.addEventListener("resize", setVh);
+  window.addEventListener("resize", debounce(setVh, 100));
   setVh();
 };

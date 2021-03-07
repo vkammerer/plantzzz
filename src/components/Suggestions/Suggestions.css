@@ -36,8 +36,8 @@
   flex-basis: 2.15rem;
   line-height: 2.15rem;
   cursor: pointer;
-  border: 2px solid #a0b38e;
-  margin-bottom: calc(0.85rem - 4px);
+  border: 0.12rem solid #a0b38e;
+  margin-bottom: 0.4rem;
   text-shadow: 0 0 0.4em black;
   font-size: 1.25rem;
   border-radius: 1rem;
@@ -56,12 +56,12 @@
 .Suggestions_botanical .Suggestion {
   font-style: italic;
   background: rgba(140, 63, 23, 0.8);
-  border: 2px solid #d0b59f;
+  border-color: #d0b59f;
 }
 
 .Suggestions_common .Suggestion {
   background: rgba(38, 72, 128, 0.8);
-  border: 2px solid #a6b0da;
+  border-color: #a6b0da;
 }
 
 .Suggestion_selected,

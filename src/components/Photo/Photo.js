@@ -18,8 +18,8 @@ const Photo = (props) => {
     const photoRect = photoEl.current.getBoundingClientRect();
     setIsLoaded(true);
     setProgressStyle({
-      top: `${imgRect.top + 2 - photoRect.top}px`,
-      right: `${photoRect.right - imgRect.right + 2}px`,
+      top: `${Math.floor(imgRect.top + 2 - photoRect.top)}px`,
+      right: `${Math.floor(photoRect.right - imgRect.right + 2)}px`,
     });
     await wait(550);
     props.handlePhotoLoaded();
