@@ -1,5 +1,8 @@
 .Home {
   padding: 1rem;
+  display: grid;
+  grid-template-rows: auto auto;
+  align-content: space-evenly;
 }
 
 .Home_button {
@@ -9,19 +12,21 @@
 .Home_intro {
   padding: 1rem;
   color: white;
-  line-height: 1.3;
+  line-height: 1.27;
   background: rgba(0, 0, 0, 0.25);
-  margin: 1rem 0 2rem;
+  margin: 0.2rem auto 2rem;
   border: 1px solid rgba(0, 0, 0, 0.3);
+  text-align: center;
+  border-radius: 50%;
+  padding: 0.8em;
+  width: 17rem;
 }
 
-.Home_intro .Home_intro_description p {
-  margin: 0.5rem 0;
-  line-height: 1.4rem;
-}
-
-.Home_intro .Home_intro_description span {
+.Home_intro p.Home_intro_description,
+.Home_intro span {
+  font-size: 1.2em;
   font-weight: bold;
+  margin-bottom: 0;
 }
 
 .Home_intro span:after {

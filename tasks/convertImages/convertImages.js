@@ -3,12 +3,12 @@ import { homedir } from "os";
 
 import fs from "fs-extra";
 import sharp from "sharp";
-import { includes, intersection, flatten } from "lodash";
+import { includes, intersection, difference, flatten } from "lodash";
 
 /*
   Test
 */
-const testJsonName = "LASC211 - Test 1.json";
+const testJsonName = "LASC206_S2 - Test 1.json";
 const testsGoogleDriveRelativePath = `projects/plantzzz/tests/${testJsonName}`;
 const testsInputFolderPath = path.resolve(
   homedir(),
@@ -57,10 +57,12 @@ const getImagesPaths = (dir) => {
   const testPlantsDirectories = intersection(files, testPlants);
 
   if (testPlants.length !== testPlantsDirectories.length) {
+    const diff = difference(testPlants, files);
     console.log(`
 Mismatch: 
 testPlants.length: ${testPlants.length}
 testPlantsDirectories.length: ${testPlantsDirectories.length}
+Difference: ${diff.join(", ")}
 `);
     process.exit();
   }

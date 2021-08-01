@@ -9,16 +9,22 @@ const Home = ({ plants, error }) => {
     <div className="Home">
       <div className="Home_intro">
         <p className="Home_intro_description">
-          <span>Plantzzz</span> helps you identify plants and test your knowledge about them.
+          Identify plants
+          <br />
+          and test your knowledge!
         </p>
-        <p>The faster you answer, the more points you get!</p>
+        <p>
+          The faster 🚀 you answer,
+          <br />
+          the more points 💪 you get.
+        </p>
         <p className="Home_intro_currentSet">
-          Current set:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span>LASC 211 - test 1</span>
+          <span>LASC 206 S2 - test 1</span>
         </p>
       </div>
       {(plants.length === 0 || error) && <Loader error={error} />}
       {plants.length > 0 && !error && (
-        <>
+        <div>
           <Link to="/quiz">
             <div className="button Home_button" role="button">
               Play Quiz
@@ -34,7 +40,7 @@ const Home = ({ plants, error }) => {
               View Scores
             </div>
           </Link>
-        </>
+        </div>
       )}
     </div>
   );

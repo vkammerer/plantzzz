@@ -1,7 +1,7 @@
 .Game {
   position: relative;
-  display: flex;
-  flex-direction: column;
+  display: grid;
+  grid-template-rows: 4.5rem auto;
   height: calc(var(--vh, 1vh) * 100);
   width: 100vw;
   max-width: calc(var(--vh) * 70);

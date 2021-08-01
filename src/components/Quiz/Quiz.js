@@ -10,7 +10,7 @@ import Photo from "../Photo/Photo";
 
 import "./Quiz.css";
 
-const Quiz = props => {
+const Quiz = (props) => {
   const _isMounted = useRef(false);
   const _suggestionsShowTime = useRef();
   const [_plants, setPlants] = useState(props.plants);
@@ -35,7 +35,10 @@ const Quiz = props => {
     if (_questionI > 0) showQuestion();
   };
 
+  const plantsRef = useRef();
   const handleQuizUpdate = () => {
+    if (plantsRef.current === _plants) return;
+    plantsRef.current = _plants;
     if (!_isMounted.current) return;
 
     (async () => {
@@ -64,10 +67,10 @@ const Quiz = props => {
   };
 
   useEffect(handleNewQuestion, [_questionI]);
-  useEffect(handleQuizUpdate, [_plants]);
+  useEffect(handleQuizUpdate, [_plantI, _plants, _questionI, props]);
   useEffect(handleMount, []);
 
-  const handleUserAnswer = async name => {
+  const handleUserAnswer = async (name) => {
     if (_plants[_plantI].userAnswer) return;
 
     const timeToReply = Date.now() - _suggestionsShowTime.current;
