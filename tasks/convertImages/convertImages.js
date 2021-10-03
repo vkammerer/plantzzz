@@ -8,7 +8,7 @@ import { includes, intersection, difference, flatten } from "lodash";
 /*
   Test
 */
-const testJsonName = "LASC206_S2 - Test 1.json";
+const testJsonName = "LASC206_S2 - Test 2.json";
 const testsGoogleDriveRelativePath = `projects/plantzzz/tests/${testJsonName}`;
 const testsInputFolderPath = path.resolve(
   homedir(),

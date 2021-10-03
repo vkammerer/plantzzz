@@ -19,7 +19,7 @@ const Home = ({ plants, error }) => {
           the more points 💪 you get.
         </p>
         <p className="Home_intro_currentSet">
-          <span>LASC 206 S2 - test 1</span>
+          <span>LASC 206 - S2 - test 2</span>
         </p>
       </div>
       {(plants.length === 0 || error) && <Loader error={error} />}
