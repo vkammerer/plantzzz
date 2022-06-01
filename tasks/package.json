@@ -11,6 +11,6 @@
     "@babel/register": "^7.9.0",
     "fs-extra": "^8.0.0",
     "node-fetch": "^2.6.1",
-    "sharp": "^0.25.1"
+    "sharp": "^0.30.5"
   }
 }
