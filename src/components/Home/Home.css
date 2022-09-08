@@ -12,14 +12,30 @@
 .Home_intro {
   padding: 1rem;
   color: white;
-  line-height: 1.27;
-  background: rgba(0, 0, 0, 0.25);
+  line-height: 1.23;
+  background: rgba(0, 0, 0, 0.55);
   margin: 0.2rem auto 1.5rem;
   border: 1px solid rgba(0, 0, 0, 0.3);
   text-align: center;
   border-radius: 50%;
   padding: 0.8em;
-  width: 17rem;
+  width: 20rem;
+  font-size: 1.15em;
+}
+
+.Home_intro_loading a {
+  visibility: hidden;
+}
+
+.Home_intro_loading:after {
+  content: "Loading...";
+  display: block;
+  position: absolute;
+  font-size: 1.5em;
+  margin: -6em auto 0;
+  width: 100%;
+  text-align: center;
+  color: white;
 }
 
 .Home_intro p.Home_intro_description,
@@ -37,4 +53,16 @@
 
 .Home_intro .Home_intro_currentSet {
   padding-bottom: 0.8em;
+}
+
+.Home_intro .Home_intro_picker select {
+  background: rgba(0, 0, 0, 0.25);
+  color: white;
+  font-size: 0.85em;
+  padding: 0.2em 0.4em;
+  border-radius: 0.5em;
+  margin-bottom: 0.5em;
+}
+.Home_intro .Home_intro_picker option {
+  color: "white";
 }

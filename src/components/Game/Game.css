@@ -8,7 +8,8 @@
   margin: 0 auto;
   overflow: hidden;
   font-family: "Dekko";
-  background-image: url("../../images/bg.png");
+  background-image: url("../../images/bg.jpeg");
+  background-size: cover;
 }
 
 .Plant {

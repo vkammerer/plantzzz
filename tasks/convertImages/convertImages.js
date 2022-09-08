@@ -3,13 +3,13 @@ import { homedir } from "os";
 
 import fs from "fs-extra";
 import sharp from "sharp";
+import name from "../name.json";
 import { includes, intersection, difference, flatten } from "lodash";
 
 /*
   Test
 */
-const testJsonName = "LASC206_S2 - Test 2.json";
-const testsGoogleDriveRelativePath = `projects/plantzzz/tests/${testJsonName}`;
+const testsGoogleDriveRelativePath = `projects/plantzzz/tests/${name.name}.json`;
 const testsInputFolderPath = path.resolve(
   homedir(),
   "Google Drive (scholarshacks@gmail.com)",
