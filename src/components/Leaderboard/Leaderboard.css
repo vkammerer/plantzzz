@@ -4,27 +4,31 @@
   text-shadow: 0 1px 3px rgba(0, 0, 0, 0.7);
 }
 
-.Leaderboard_header {
-  text-align: center;
-  font-size: 1.6rem;
-  padding-bottom: 0.3rem;
-}
-
 .Leaderboard_content {
-  padding: 1rem;
+  padding: 0.8rem 1.5rem;
+  margin: 1rem 0;
   background: rgba(0, 0, 0, 0.55);
   color: white;
   box-shadow: 0 1px 0.1rem 0px rgba(0, 0, 0, 0.4);
   outline: 1px solid rgba(0, 0, 0, 0.15);
 }
 
+.Leaderboard_header {
+  position: relative;
+  text-align: center;
+  font-size: 1.6rem;
+  padding-bottom: 0.3rem;
+  margin-bottom: 1rem;
+}
+
 .Leaderboard_score {
   position: relative;
   display: flex;
   justify-content: space-between;
-  line-height: 1.7rem;
+  line-height: 1.9rem;
 }
 
+.Leaderboard_header:after,
 .Leaderboard_score:not(:last-child):after {
   content: "";
   position: absolute;

@@ -16,9 +16,9 @@ var dateOptions = {
 const Leaderboard = ({ scores }) => {
   const augmentedScores = reverse(sortBy(scores, "value"))
     .slice(0, 10)
-    .map(s => {
+    .map((s) => {
       const date = new Date(s.date);
-      const day = date.toLocaleDateString("en-US", dateOptions);
+      const day = date.toLocaleDateString("en-US", dateOptions).replace(" at ", "  -  ");
       return {
         ...s,
         day,
@@ -26,11 +26,11 @@ const Leaderboard = ({ scores }) => {
     });
   return (
     <div className="Leaderboard">
-      <div className="Leaderboard_header">Scores - Top 10</div>
       <div className="Leaderboard_content">
+        <div className="Leaderboard_header">Scores - Top 10</div>
         {augmentedScores.length === 0 && "No quiz completed yet"}
         {augmentedScores.length > 0 &&
-          augmentedScores.map(s => (
+          augmentedScores.map((s) => (
             <div key={s.date} className="Leaderboard_score">
               <div className="Leaderboard_score_date">{s.day}</div>
               <div className="Leaderboard_score_value">{s.value}</div>
