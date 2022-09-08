@@ -17,7 +17,7 @@ const PLANTS_COUNT = 10;
 const getLocalScores = () => {
   const scoresStr = localStorage.getItem("plantzzzScores");
   if (scoresStr)
-    return JSON.parse(scoresStr).map(s => ({
+    return JSON.parse(scoresStr).map((s) => ({
       date: s.date,
       /*
         The data structure of a `score` changed but
@@ -29,13 +29,14 @@ const getLocalScores = () => {
   return [];
 };
 
-const setLocalScores = scores => {
+const setLocalScores = (scores) => {
   localStorage.setItem("plantzzzScores", JSON.stringify(scores));
 };
 
-const Game = props => {
+const Game = (props) => {
   const plants = useRef([]);
   const [error, setError] = useState(null);
+  const [test, setTest] = useState(null);
   const [quizPlants, setQuizPlants] = useState([]);
   const [trainingPlants, setTrainingPlants] = useState([]);
   const [scores, setScores] = useState(getLocalScores());
@@ -43,25 +44,27 @@ const Game = props => {
   useEffect(() => {
     (async () => {
       try {
-        plants.current = await getData();
-        setTrainingPlants(
-          getQuizPlants({
-            plants: plants.current,
-            count: plants.current.length,
-          }),
-        );
+        if (test == null) return;
+        setQuizPlants([]);
+        plants.current = await getData(test);
         setQuizPlants(
           getQuizPlants({
             plants: plants.current,
             count: PLANTS_COUNT,
-          }),
+          })
+        );
+        setTrainingPlants(
+          getQuizPlants({
+            plants: plants.current,
+            count: plants.current.length,
+          })
         );
       } catch (error) {
         setError(error);
         throw error;
       }
     })();
-  }, []);
+  }, [test]);
 
   useEffect(() => {
     if (!quizPlants.length) return;
@@ -73,7 +76,7 @@ const Game = props => {
     preloadPhoto(trainingPlants[0]);
   }, [trainingPlants]);
 
-  const onQuizEnd = quiz => {
+  const onQuizEnd = (quiz) => {
     const score = {
       date: Date.now(),
       value: getScoreValue(quiz),
@@ -91,11 +94,11 @@ const Game = props => {
       getQuizPlants({
         plants: plants.current,
         count: PLANTS_COUNT,
-      }),
+      })
     );
   };
 
-  const onTrainingEnd = quiz => {
+  const onTrainingEnd = (quiz) => {
     const scoreValue = getScoreValue(quiz);
     ReactGA.event({
       category: "Training",
@@ -107,7 +110,7 @@ const Game = props => {
       getQuizPlants({
         plants: plants.current,
         count: plants.current.length,
-      }),
+      })
     );
   };
 
@@ -117,12 +120,14 @@ const Game = props => {
       <Route
         exact
         path="/"
-        render={routeProps => <Home {...routeProps} plants={quizPlants} error={error} />}
+        render={(routeProps) => (
+          <Home {...routeProps} plants={quizPlants} error={error} test={test} onTest={setTest} />
+        )}
       />
       <Route
         exact
         path="/quiz"
-        render={routeProps =>
+        render={(routeProps) =>
           quizPlants.length > 0 ? (
             <Quiz {...routeProps} plants={quizPlants} onQuizEnd={onQuizEnd} trackScore />
           ) : (
@@ -133,7 +138,7 @@ const Game = props => {
       <Route
         exact
         path="/training"
-        render={routeProps =>
+        render={(routeProps) =>
           trainingPlants.length > 0 ? (
             <Quiz {...routeProps} plants={trainingPlants} onQuizEnd={onTrainingEnd} />
           ) : (
@@ -144,7 +149,7 @@ const Game = props => {
       <Route
         exact
         path="/leaderboard"
-        render={routeProps => <Leaderboard {...routeProps} scores={scores} />}
+        render={(routeProps) => <Leaderboard {...routeProps} scores={scores} />}
       />
     </div>
   );

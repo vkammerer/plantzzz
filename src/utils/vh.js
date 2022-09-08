@@ -1,9 +1,8 @@
 import { debounce } from "lodash";
 
 const getRem = (vw, vh) => {
-  if (vw / vh > 0.7) return vh * 3.8 * 0.7;
-  if (vw / vh < 0.6) return vw * 4.5;
-  return vw * 4.2;
+  if (vw / vh > 0.7) return vh * 0.7 * 4;
+  return vw * 4;
 };
 
 export const initCorrectVh = () => {

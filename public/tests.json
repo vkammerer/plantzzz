@@ -1,0 +1,9 @@
+{
+  "tests": {
+    "LASC211_S1_01": { "label": "LASC 211 S1, Test 1", "active": true },
+    "LASC211_S1_02": { "label": "LASC 211 S1, Test 2", "active": true },
+    "LASC206_S2_01": { "label": "LASC 206 S2, Test 1", "active": true },
+    "LASC206_S2_02": { "label": "LASC 206 S2, Test 2", "active": true }
+  },
+  "defaultTest": "LASC206_S2_02"
+}

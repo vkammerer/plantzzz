@@ -3,7 +3,7 @@
   "version": "0.1.0",
   "license": "MIT",
   "scripts": {
-    "build": "rm -rf ../public/images/plants/750 && node ./convertImages && node ./augmentImages && node ./parseData"
+    "build": "node ./convertImages && node ./augmentImages && node ./parseData"
   },
   "dependencies": {
     "@babel/core": "^7.9.0",

@@ -1,10 +1,12 @@
-import React from "react";
 import Loader from "../Loader/Loader";
 import { Link } from "react-router-dom";
+import React, { useState, useEffect } from "react";
 
+import { getConfig } from "../../utils/data";
 import "./Home.css";
 
-const Home = ({ plants, error }) => {
+const Home = ({ plants, error, test, onTest, isLoaded }) => {
+  console.log(plants.length);
   return (
     <div className="Home">
       <div className="Home_intro">
@@ -18,13 +20,11 @@ const Home = ({ plants, error }) => {
           <br />
           the more points 💪 you get.
         </p>
-        <p className="Home_intro_currentSet">
-          <span>LASC 206 - S2 - test 2</span>
-        </p>
+        <GamePicker onTest={onTest} />
       </div>
-      {(plants.length === 0 || error) && <Loader error={error} />}
-      {plants.length > 0 && !error && (
-        <div>
+      {!!error && <Loader error={error} />}
+      {!error && (
+        <div className={plants.length > 0 && !!test ? "" : "Home_intro_loading"}>
           <Link to="/quiz">
             <div className="button Home_button" role="button">
               Play Quiz
@@ -43,6 +43,45 @@ const Home = ({ plants, error }) => {
         </div>
       )}
     </div>
+  );
+};
+
+const GamePicker = ({ onTest }) => {
+  const [config, setConfig] = useState(null);
+
+  useEffect(() => {
+    (async () => {
+      try {
+        setConfig(null);
+        const c = await getConfig();
+        setConfig(c);
+        onTest(c.defaultTest);
+      } catch (error) {
+        throw error;
+      }
+    })();
+  }, [onTest]);
+
+  return (
+    <p className="Home_intro_picker">
+      {!config ? (
+        <>Loading config...</>
+      ) : (
+        <select
+          defaultValue={config.defaultTest}
+          onChange={async (c) => {
+            const test = c.target.value;
+            onTest(test);
+          }}
+        >
+          {Object.entries(config.tests).map(([key, val]) => (
+            <option value={key} key={key} disabled={!val.active}>
+              {val.label}
+            </option>
+          ))}
+        </select>
+      )}
+    </p>
   );
 };
 
