@@ -6,7 +6,6 @@ import { getConfig } from "../../utils/data";
 import "./Home.css";
 
 const Home = ({ plants, error, test, onTest, isLoaded }) => {
-  console.log(plants.length);
   return (
     <div className="Home">
       <div className="Home_intro">

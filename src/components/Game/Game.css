@@ -19,7 +19,7 @@
 }
 
 .Plant_Options {
-  flex-basis: 13.5rem;
+  flex-basis: calc(13.5rem + var(--distortion));
 }
 
 .Plant_Options > div {
